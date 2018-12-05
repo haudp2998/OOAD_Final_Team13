@@ -1,0 +1,49 @@
+﻿@model ASPCore_Final.Models.NhaCungCap
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Chi tiết</h2>
+
+<div>
+    <h4>Nhà cung cấp</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TenCongTy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TenCongTy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DienThoai)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DienThoai)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DiaChi)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DiaChi)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MoTa)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MoTa)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.MaNcc" class="btn btn-primary">Sửa</a> |
+    <a asp-action="Index" class="btn btn-primary">Trở lại</a>
+</div>

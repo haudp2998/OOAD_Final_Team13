@@ -1,0 +1,71 @@
+﻿@model ASPCore_Final.Models.KhachHang
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_frontEnd.cshtml";
+}
+@section breadcumb{
+    <div class="breadcrumbs">
+        <div class="container">
+            <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+                <li><a asp-controller="Home" asp-action="Index"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Trang chủ</a></li>
+                <li class="active">Đăng kí</li>
+            </ol>
+        </div>
+    </div>
+}
+<div class="register">
+    <div class="container">
+        <h3 class="animated wow zoomIn" data-wow-delay=".5s">Đăng kí tại đây</h3>
+        <form asp-action="Create" class="animated wow slideInUp" data-wow-delay=".5s" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="login-form-grids">
+                <div class="alert alert-info alert-dismissable">
+                    <a class="panel-close close" data-dismiss="alert">×</a>
+                    <i class="fa fa-coffee"></i>
+                    <strong>Tên đăng nhập</strong> và <strong>Email</strong> không thể đổi sau khi đăng kí.
+                </div>
+                @if (TempData["FailUser"] != null)
+                {
+                    <div class="text-danger">
+                        <p>@TempData["FailUser"].ToString()</p>
+                    </div>
+                }
+                <input asp-for="TaiKhoan" class="form-control" placeholder="Tên đăng nhập..." type="text" required />
+                <br />
+                <input asp-for="MatKhau" class="form-control" placeholder="Mật khẩu..." type="password" required />
+                <br />
+                <input asp-for="HoTen" class="form-control" placeholder="Họ tên..." type="text" required />
+                <br />
+                <select class="form-control selected" asp-for="GioiTinh" required>
+                    <option>Nam</option>
+                    <option>Nữ</option>
+                </select>
+                <br />
+                <input asp-for="NgaySinh" class="form-control" placeholder="Ngày sinh" required />
+                <br />
+                <input asp-for="DiaChi" class="form-control" placeholder="Địa chỉ..." type="text" required />
+                <br />
+                <input asp-for="DienThoai" class="form-control" placeholder="Số điện thoại..." type="tel" required />
+                <br />
+                @if (TempData["FailEmail"] != null)
+                {
+                    <div class="text-danger">
+                        <p>@TempData["FailEmail"].ToString()</p>
+                    </div>
+                }
+                <input asp-for="Email" class="form-control" placeholder="Địa chỉ email..." type="email" required />
+                <br />
+                <!--<input type="file" name="fHinh" asp-for="Hinh" class="form-control" />-->
+                <label>Chọn avatar</label>
+                <input type="file" name="fHinh" placeholder="Chọn avatar" required class="form-control" />
+                <div class="alert alert-info alert-dismissable">
+                    <a class="panel-close close" data-dismiss="alert">×</a>
+                    <i class="fa fa-coffee"></i>
+                    Nhớ kiểm tra <strong>Email</strong> của bạn để kích hoạt tài khoản
+                </div>
+                <input type="submit" value="Hoàn tất" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>

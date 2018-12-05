@@ -1,0 +1,52 @@
+﻿@model ASPCore_Final.Models.NhanVien
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>NhanVien</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.HoTen)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HoTen)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MatKhau)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MatKhau)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TrangThaiHd)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TrangThaiHd)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MaPqNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MaPqNavigation.MaPq)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="MaNv" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

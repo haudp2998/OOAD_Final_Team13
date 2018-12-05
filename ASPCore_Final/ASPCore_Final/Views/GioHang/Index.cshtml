@@ -1,0 +1,199 @@
+﻿@model List<ASPCore_Final.Models.CartItem>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_frontEnd.cshtml";
+}
+
+<!-- breadcrumbs -->
+<div class="breadcrumbs">
+    <div class="container">
+        <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+            <li><a asp-action="Index" asp-controller="Home"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Trang chủ</a></li>
+            <li class="active">Giỏ hàng</li>
+        </ol>
+    </div>
+</div>
+<!-- //breadcrumbs -->
+<!-- checkout -->
+<div class="checkout">
+    <div class="container">
+        @if (Context.Session.Get<string>("ErrorGH") != null)
+        {
+            string loi = Context.Session.Get<string>("ErrorGH");
+        <div class="alert alert-danger">@loi</div>
+        }
+            <br />
+        @if (Model != null)
+        {
+            <h3 class="animated wow slideInLeft" data-wow-delay=".5s">Giỏ hàng chứa : <span>@Model.Count()</span> mặt hàng</h3>
+            <div class="checkout-right animated wow slideInUp" data-wow-delay=".5s">
+                <table class="timetable_sub">
+                    <thead>
+                        <tr>
+                            <th>Mã hàng hóa</th>
+                            <th>Sản phẩm</th>
+                            <th>Kích cỡ</th>
+                            <th colspan="2">Số lượng</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Giá bán</th>
+                            <th>Xóa</th>
+                        </tr>
+                    </thead>
+                    @{
+                        int i = 1;
+                    }
+                    @foreach (var item in Model)
+                    {
+                        <tr class="rem1">
+                            <td class="invert" width="70px;">@i</td>
+                            <td class="invert-image" width="150px;"><a asp-action="ChiTiet" asp-controller="HangHoa" asp-route-mahh="@item.MaHh"><img src="~/HangHoa/@item.Hinh" alt=" " class="img-responsive" /></a></td>
+                            <td class="invert" width="50px;">@item.KichCo</td>
+                            <form asp-action="CapNhatSL" asp-controller="GioHang" method="post">
+                                <input type="hidden" name="mahh" value="@item.MaHh" />
+                                <input type="hidden" name="kichco" value="@item.KichCo" />
+                                <td class="invert">
+                                    <div class="quantity-select">
+                                        <input class="entry value" type="text" name="soluongmoi" value="@item.SoLuong" min="1" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <button name="btnCapNhatSL" type="submit" class="btn btn-primary">Cập nhật</button>
+                                    </div>
+                                </td>
+                            </form>
+                            <td class="invert">@item.TenHh</td>
+                            <td class="invert">@item.GiaBan.ToString("#,##0") đ</td>
+                            <td class="invert">
+                                <div class="rem">
+                                    <div><a asp-action="XoaCartItem" asp-controller="GioHang" asp-route-cartitem="@item.MaHh" class="close1"></a></div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            <div class="checkout-left">
+                <div class="checkout-left-basket animated wow slideInLeft" data-wow-delay=".5s">
+                    <h4>THÔNG TIN GIỎ HÀNG</h4>
+                    @{
+                        double tongtien = 0;
+                    }
+                    <ul>
+                        @foreach (var item in Model)
+                        {
+                            <li>@item.TenHh<i>-</i><span>@item.SoLuong<i>x</i>@item.GiaBan.ToString("#,##0") đ</span></li>
+                            tongtien = tongtien + item.ThanhTien;
+                        }
+                        <li style="color:seagreen;border-top:groove;font-size:20px;">TỔNG THANH TOÁN <i>-</i><span>@tongtien.ToString("#,##0") đ</span></li>
+                    </ul>
+                </div>
+                <div class="checkout-right-basket animated wow slideInRight" data-wow-delay=".5s">
+                    <a asp-action="Index" asp-controller="HangHoa"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Tiếp tục mua hàng</a>
+                </div>
+                <div class="clearfix"> </div>
+                <br />
+                <!--  Hiệu ứng accordion -->
+                <script src="~/css/style.css"></script>
+                <script>
+                    $(function () {
+                        $('.ndmotkhoi').slideUp();
+                        $('.motkhoi h3').click(function (event) {
+                            $(this).next('.ndmotkhoi').slideToggle();
+                            $(this).toggleClass("xanh");
+                        });
+                    });
+                </script>
+                <div class="hieuung" style="font-weight:300px">
+                    <div class="motkhoi">
+                        <h3 class="btn btn-success" style="margin:auto;display:block;margin:auto">THANH TOÁN GIỎ HÀNG</h3>
+                        <div class="ndmotkhoi">
+                            @if (Context.Session.Get<KhachHang>("user") != null)
+                            {
+                                KhachHang kh = Context.Session.Get<KhachHang>("user");
+                                <form asp-action="TaoHoaDon" asp-controller="GioHang" method="post">
+                                    <input type="hidden" name="makh" value="@kh.MaKh" class="form-control" />
+                                    <br />
+
+                                    <div style="display:inline">
+                                        <label>Họ và tên khách hàng</label>
+                                        <input type="text" name="hotenkh" value="@kh.HoTen" class="form-control" />
+                                    </div>
+                                    <br />
+                                    <div style="display:inline">
+                                        <label>Địa chỉ</label>
+                                        <input type="text" name="diachi" value="@kh.DiaChi" class="form-control" />
+                                    </div>
+                                    <br />
+                                    <div style="display:inline">
+                                        <label>Họ và tên người nhận</label>
+                                        <input type="text" name="hoten_ngnhan" value="" class="form-control" required />
+                                    </div>
+                                    <br />
+                                    <div style="display:inline">
+                                        <label>Địa chỉ người nhận</label>
+                                        <input type="text" name="dc_nguoinhan" value="" class="form-control" required />
+                                    </div>
+                                    <br />
+                                    <div style="display:inline">
+                                        <label>Số điện thoại người nhận</label>
+                                        <input type="text" name="sdt" value="" class="form-control" required />
+                                    </div>
+                                    <br />
+                                    <div style="display:inline">
+                                        <label>Ghi chú</label>
+                                        <input type="text" name="ghichu" value="" class="form-control" />
+                                    </div>
+                                    <br />
+                                    <div style="text-align:center">
+                                        <button class="btn btn-success" type="submit">Xác nhận và kiểm tra email</button>
+                                    </div>
+                                </form>
+                                <br />
+                            }
+                            else
+                            {
+                                <br />
+                                <label class="alert alert-danger"> Bạn cần đăng nhập để tiếp tục</label>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <br />
+                @if (Context.Session.Get<string>("mess") != null)
+                {
+                    var mess = Context.Session.Get<string>("mess");
+                    <div style="text-align:center"><label class="alert alert-info">@mess</label></div>
+                }
+            </div>
+        }
+        else
+        {
+            <h3 class="animated wow slideInLeft" data-wow-delay=".5s">Giỏ hàng chứa : <span>0 sản phẩm</span></h3>
+            <div class="checkout-right animated wow slideInUp" data-wow-delay=".5s">
+                <table class="timetable_sub">
+                    <thead>
+                        <tr>
+                            <th>Mã hàng</th>
+                            <th>Sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Giá bán</th>
+                            <th>Xóa</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="checkout-left">
+                <div class="checkout-left-basket animated wow slideInLeft" data-wow-delay=".5s">
+                    <h4>Thanh toán</h4>
+                </div>
+                <div class="checkout-right-basket animated wow slideInRight" data-wow-delay=".5s">
+                    <a asp-action="Index" asp-controller="HangHoa"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Tiếp tục mua hàng</a>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        }
+    </div>
+</div>
+<!-- //checkout -->

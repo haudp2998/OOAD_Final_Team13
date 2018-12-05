@@ -1,0 +1,199 @@
+﻿@model IEnumerable<ASPCore_Final.Models.HangHoa>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+@section breadcumb{
+    <div class="breadcrumbs">
+        <div class="container">
+            <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+                <li><a asp-action="Index" asp-controller="Home"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Trang chủ</a></li>
+                <li class="active">Sản phẩm</li>
+            </ol>
+        </div>
+    </div>
+}
+    <div class="col-md-4 products-left" style="margin-top:15px;">
+        <div style="margin-top:auto;">
+            <input class="sb-search-input" placeholder="Nhập vào từ khóa..." type="search" id="searchsp" style="width:300px;">
+        </div>
+        <br />
+        <br />
+        <br />
+        <div id="results"></div>
+        <div class="categories animated wow slideInUp" data-wow-delay=".5s">
+            <h3>Thể loại</h3>
+            <ul class="cate">
+                @{
+                    ESHOPContext db = new ESHOPContext();
+                    var listNam = db.Loai.Where(p => p.GioiTinh == false).ToList();
+                    int soluongSPNam = db.HangHoa.Where(p => p.MaLoaiNavigation.GioiTinh == false).ToList().Count();
+                    var listNu = db.Loai.Where(p => p.GioiTinh == true).ToList();
+                    int soluongSPNu = db.HangHoa.Where(p => p.MaLoaiNavigation.GioiTinh == true).ToList().Count();
+                }
+                <li>Thời trang nam<span>(@soluongSPNam)</span></li>
+                <ul>
+                    @foreach (var item in listNam)
+                    {
+                        int soluong = db.HangHoa.Where(p => p.MaLoai == item.MaLoai).ToList().Count();
+                        <li><a asp-action="Index" asp-controller="HangHoa" asp-route-loai="@item.MaLoai">@item.TenLoai</a> <span>(@soluong)</span></li>
+                    }
+                </ul>
+                <li><a href="products.html">Thời trang nữ</a> <span>(@soluongSPNu)</span></li>
+                <ul>
+                    @foreach (var item in listNu)
+                    {
+                        int soluong = db.HangHoa.Where(p => p.MaLoai == item.MaLoai).ToList().Count();
+                        <li><a asp-action="Index" asp-controller="HangHoa" asp-route-loai="@item.MaLoai">@item.TenLoai</a> <span>(@soluong)</span></li>
+                    }
+                </ul>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-8 products-right">
+        <div class="products-right-grids-bottom">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4 products-right-grids-bottom-grid" style="margin-bottom:15px;">
+                    <div class="new-collections-grid1 products-right-grid1 animated wow slideInUp" data-wow-delay=".5s" style="padding:10px;">
+                        <div class="new-collections-grid1-image">
+                            <a asp-action="ChiTiet" asp-controller="HangHoa" asp-route-id="@item.MaHh" class="product-image" style="padding:10px;"><img src="~/HangHoa/@item.Hinh" alt=" " class="img-responsive"></a>
+                            <div class="new-collections-grid1-image-pos products-right-grids-pos" style="text-align:center">
+                                <a asp-action="ChiTiet" asp-controller="HangHoa" asp-route-mahh="@item.MaHh">Xem chi tiết</a>
+                            </div>
+                            @{
+                                List<SanPhamKho> sanPhamKhos = db.SanPhamKho.Where(p => p.MaHh == item.MaHh).ToList();
+                                var soluong = sanPhamKhos.Sum(x => x.SoLuong);
+                                if (soluong > 10)
+                                {
+                                    double gg = item.GiamGia * 100;
+                                    <div class="new-one">
+                                        <p>-@gg%</p>
+                                    </div>
+                                }
+                                else if (soluong > 0)
+                                {
+                                    <div class="new-one">
+                                        <p>Sắp hết hàng</p>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="new-one">
+                                        <p>Tạm hết hàng</p>
+                                    </div>
+                                }
+                            }
+
+                            <div class="new-collections-grid1-right products-right-grids-pos-right">
+                                <div class="rating">
+                                    @{
+                                        List<YeuThich> yts = db.YeuThich.Where(p => p.MaHh == item.MaHh).ToList();
+                                        double diemyt = 0;
+                                        if (yts.Count > 0)
+                                        {
+                                            double tongdiem = 0;
+                                            foreach (var y in yts)
+                                            {
+                                                tongdiem = tongdiem + y.DiemDanhGia;
+                                            }
+                                            diemyt = tongdiem / yts.Count();
+                                            int diem = int.Parse(diemyt.ToString().Split(".")[0]);
+                                            if (diem < 3)
+                                            {
+                                                diem = 3;
+                                            }
+                                            for (int i = 1; i <= 5; i++)
+                                            {
+                                                if (i <= diem)
+                                                {
+                                                    <img src="~/images/2.png" style="opacity:1">
+                                                }
+                                                else if (i > diem)
+                                                {
+                                                    <img src="~/images/1.png" style="opacity:1">
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            @for (int i = 1; i <= 5; i++)
+                                            {
+                                                <img src="~/images/2.png" style="opacity:1">
+                                            }
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <h4><a asp-action="ChiTiet" asp-controller="HangHoa" asp-route-mahh="@item.MaHh">@item.TenHh</a></h4>
+                        <p>@item.MoTa</p>
+                        <div class="simpleCart_shelfItem products-right-grid1-add-cart">
+                            @{
+                                double dongiaban = item.DonGia * (1 - item.GiamGia);
+                                double giamgia = item.GiamGia * 100;
+                            }
+                            <p><i>@item.DonGia.ToString("#,##0") đ</i> <span class="item_price">@dongiaban.ToString("#,##0") đ</span></p>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="clearfix"> </div>
+            
+            <nav class="numbering animated wow slideInRight" data-wow-delay=".5s">
+                <ul class="pagination paging">
+                    @{
+                        string loai = "";
+                        if (Model.Count() > 0)
+                        {
+                            loai = Model.First().MaLoai;
+                        }
+                        int listCount = db.HangHoa.Where(p => p.MaLoai == loai).ToList().Count;
+                        int pageSize = 6;
+                        var totalPage = 0;
+                        if (listCount % pageSize == 0)
+                        {
+                            totalPage = listCount / pageSize;
+                        }
+                        else
+                        {
+                            totalPage = listCount / pageSize;
+                            totalPage += 1;
+                        }
+                    }
+                    <li>
+                        <a asp-action="Index" asp-controller="HangHoa" asp-route-page="1" asp-route-loai="@loai" aria-label="Begin">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    @for (int i = 1; i <= totalPage; i++)
+                    {
+                        <li class="active"><a asp-action="Index" asp-controller="HangHoa" asp-route-page="@i" asp-route-loai="@loai">@i<span class="sr-only">(current)</span></a></li>
+
+                    }
+                    <li>
+                        <a asp-action="Index" asp-controller="HangHoa" asp-route-page="@totalPage" asp-route-loai="@loai" aria-label="End">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+        <script language="javascript">
+            $(function () {
+                $("#searchsp").keyup(function () {
+                    $.ajax({
+                        url: "/HangHoa/TimKiem",
+                        method: "GET",
+                        data: { keyword: $(this).val() },
+                        success: function (res) {
+                            $("#results").html();
+                            $("#results").html(res);
+                        }
+                    });
+                });
+            });
+        </script>

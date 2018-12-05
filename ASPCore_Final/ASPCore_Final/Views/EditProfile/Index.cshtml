@@ -1,0 +1,88 @@
+﻿@model IEnumerable<ASPCore_Final.Models.KhachHang>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_frontEnd.cshtml";
+}
+@section breadcumb{
+    <div class="breadcrumbs">
+        <div class="container">
+            <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+                <li><a asp-controller="Home" asp-action="Index"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Trang chủ</a></li>
+                <li class="active">Thông tin tài khoản</li>
+            </ol>
+        </div>
+    </div>
+}
+<hr />
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="text-center">
+                @if (Context.Session.Get<KhachHang>("user") != null)
+                {
+                    KhachHang item = Context.Session.Get<KhachHang>("user");
+                    <img src="~/UserAvatar/@Html.DisplayFor(modelItem => item.Hinh)" class="avatar img-circle" alt="avatar" height="200" width="200">
+                }
+            </div>
+        </div>
+        <div class="col-md-9 personal-info">
+            @if (Context.Session.Get<KhachHang>("user") != null)
+            {
+                KhachHang item = Context.Session.Get<KhachHang>("user");
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Tên đăng nhập:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" value="@Html.DisplayFor(modelItem => item.TaiKhoan)" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Họ tên:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" value="@Html.DisplayFor(modelItem => item.HoTen)" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Giới tính:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" value="@Html.DisplayFor(modelItem => item.GioiTinh)" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Ngày sinh:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" value="@Html.DisplayFor(modelItem => item.NgaySinh)" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Email:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" value="@Html.DisplayFor(modelItem => item.Email)" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Địa chỉ:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" value="@Html.DisplayFor(modelItem => item.DiaChi)" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Điện thoại:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" value="@Html.DisplayFor(modelItem => item.DienThoai)" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"></label>
+                        <div class="col-md-8">
+                            <button asp-action="Edit" asp-route-id="@item.MaKh" class="btn-primary">Cập nhật</button>
+                            <span></span>
+                            <button asp-action="Index" asp-controller="Home" class="btn-danger">Quay về trang chủ</button>
+                        </div>
+                    </div>
+                </form>
+            }
+        </div>
+    </div>
+</div>

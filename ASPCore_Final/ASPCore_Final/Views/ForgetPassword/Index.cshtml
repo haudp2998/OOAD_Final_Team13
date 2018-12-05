@@ -1,0 +1,33 @@
+﻿@model ASPCore_Final.Models.ForgetPassword
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_frontEnd.cshtml";
+}
+@section breadcumb{
+    <div class="breadcrumbs">
+        <div class="container">
+            <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+                <li><a asp-controller="Home" asp-action="Index"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Trang chủ</a></li>
+                <li class="active">Quên mật khẩu</li>
+            </ol>
+        </div>
+    </div>
+}
+<div class="forgot">
+    <div class="container">
+        <div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
+            @if (TempData["Success"] != null)
+            {
+                <div class="text-success">
+                    <p><strong>Thành công!</strong> @TempData["Success"].ToString()</p>
+                </div>
+            }
+            <h3 class="animated wow zoomIn" style="text-align:center;">Nhập email tài khoản của bạn</h3>
+            <form method="post" asp-controller="ForgetPassword" asp-action="Forget">
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                <input asp-for="UserEmail" type="email" placeholder="Địa chỉ email" required>
+                <input type="submit" value="Xác nhận">
+            </form>
+        </div>
+    </div>
+</div>

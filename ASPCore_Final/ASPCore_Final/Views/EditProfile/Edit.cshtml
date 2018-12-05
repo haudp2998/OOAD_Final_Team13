@@ -1,0 +1,85 @@
+﻿@model ASPCore_Final.Models.KhachHang
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_frontEnd.cshtml";
+}
+@section breadcumb{
+    <div class="breadcrumbs">
+        <div class="container">
+            <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+                <li><a asp-controller="Home" asp-action="Index"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Trang chủ</a></li>
+                <li class="active">Cập nhật thông tin</li>
+            </ol>
+        </div>
+    </div>
+}
+<hr />
+<form asp-action="Edit" asp-controller="EditProfile" class="form-horizontal" role="form" enctype="multipart/form-data">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="text-center">
+                    <img src="~/UserAvatar/@Model.Hinh" class="avatar img-circle" alt="avatar" height="200" width="200">
+                    <input type="file" name="fHinh" class="form-control" />
+                    <input type="hidden" asp-for="Hinh" />
+                </div>
+            </div>
+            <div class="col-md-9 personal-info">
+                <div class="alert alert-info alert-dismissable">
+                    <a class="panel-close close" data-dismiss="alert">×</a>
+                    <i class="fa fa-coffee"></i>
+                    <strong>Tên đăng nhập và Email không thể thay đổi.</strong>
+                </div>
+                <!--<form class="form-horizontal" role="form">-->
+                <input type="hidden" asp-for="MaKh" />
+                <input type="hidden" asp-for="MatKhau" />
+                <input type="hidden" asp-for="TrangThaiHd" />
+                <input type="hidden" asp-for="TaiKhoan" />
+                <input type="hidden" asp-for="Email" />
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Họ tên:</label>
+                    <div class="col-lg-8">
+                        <input asp-for="HoTen" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Giới tính:</label>
+                    <div class="col-lg-8">
+                        <select class="form-control selected" asp-for="GioiTinh">
+                            <option>Nam</option>
+                            <option>Nữ</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Ngày sinh:</label>
+                    <div class="col-lg-8">
+                        <input asp-for="NgaySinh" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Địa chỉ:</label>
+                    <div class="col-md-8">
+                        <input asp-for="DiaChi" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Số điện thoại:</label>
+                    <div class="col-md-8">
+                        <input asp-for="DienThoai" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label"></label>
+                    <div class="col-md-8">
+                        <button type="submit" class="btn btn-primary">Lưu</button>
+                        <span></span>
+                        <button asp-action="Index" class="btn btn-danger">Hủy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<hr>

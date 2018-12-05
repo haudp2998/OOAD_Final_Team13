@@ -1,0 +1,35 @@
+﻿@model ASPCore_Final.Models.LoginKH
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_frontEnd.cshtml";
+}
+@section breadcumb{
+    <div class="breadcrumbs">
+        <div class="container">
+            <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+                <li><a asp-controller="Home" asp-action="Index"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Trang chủ</a></li>
+                <li class="active">Đăng nhập</li>
+            </ol>
+        </div>
+    </div>
+}
+<!-- login -->
+<div class="login">
+    <div class="container">
+        <h3 class="animated wow zoomIn" data-wow-delay=".5s">Đăng nhập</h3>
+        <div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
+            <form method="post" asp-controller="Login" asp-action="Login">
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                <input asp-for="Username" type="text" placeholder="Tên đăng nhập" required>
+                <input asp-for="Password" type="password" placeholder="Mật khẩu" required>
+                <div class="forgot">
+                    <a asp-controller="ForgetPassword" asp-action="Index">Quên mật khẩu</a>
+                </div>
+                <input type="submit" value="Login">
+            </form>
+        </div>
+        <h4 class="animated wow slideInUp" data-wow-delay=".5s">Dành cho người mới</h4>
+        <p class="animated wow slideInUp" data-wow-delay=".5s"><a asp-controller="Register" asp-action="Create">Đăng kí tại đây</a> (Hoặc) trở về <a asp-controller="Home" asp-action="Index">Trang chủ<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
+    </div>
+</div>
+<!-- //login -->

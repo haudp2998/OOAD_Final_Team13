@@ -1,0 +1,115 @@
+﻿
+@model ReflectionIT.Mvc.Paging.PagingList<ASPCore_Final.Models.HangHoa>
+@using ReflectionIT.Mvc.Paging;
+@addTagHelper *, ReflectionIT.Mvc.Paging
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4">Danh sách hàng hoá</h4>
+    <form method="get" class="form-inline">
+        <input name="searchString" class="form-control" placeholder="Search..."
+               value="@Model.RouteValue["searchString"]" />
+        <button type="submit" class="btn btn-info">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
+        </button>
+    </form>
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Tạo mới</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TenHh)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Hinh)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DonGia)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GiamGia)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MoTa)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MaLoaiNavigation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MaNccNavigation)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TenHh)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Hinh)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DonGia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GiamGia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MoTa)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaLoaiNavigation.MaLoai)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaNccNavigation.MaNcc)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.MaHh" class="btn btn-primary">Sửa</a> |
+                        <a asp-action="Details" asp-route-id="@item.MaHh" class="btn btn-primary">Xem chi tiết</a> |
+
+                        <button type="button" class="btn btn-primary" onclick="return _delete()" id="btnDelete">Xóa</button>
+                        <script>
+                            function _delete() {
+                                var cf = confirm('Bạn có muốn xoá hàng hoá này?');
+                                if (cf) {
+                                    $.ajax({
+                                        url: '/api/Nhanviens/' + @item.MaHh,
+                                        type: "Delete",
+                                        contentType: "application/json; charset=utf-8",
+                                        dataType: "json",
+                                        async: true,
+                                        success: function (result) {
+                                            alert("Xoá hàng hoá thành công");
+                                        },
+                                        error: function (errormessage) {
+                                            alert(errormessage.responseText);
+                                        }
+                                    });
+                                }
+                            }
+                        </script>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <nav class="navbar-default justify-content-center">
+
+
+        @await this.Component.InvokeAsync("Pager", new { pagingList = this.Model, @searchString = @ViewBag.SearchString, @class = "page-item" })
+
+
+    </nav>
+</div>

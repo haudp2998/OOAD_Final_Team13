@@ -1,0 +1,62 @@
+﻿@model ASPCore_Final.Models.HangHoa
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Chi tiết hàng hoá</h2>
+
+<div>
+   
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TenHh)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TenHh)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Hinh)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Hinh)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DonGia)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DonGia)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GiamGia)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GiamGia)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MoTa)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MoTa)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.MaLoaiNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MaLoaiNavigation.MaLoai)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MaNccNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MaNccNavigation.MaNcc)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.MaHh" class="btn btn-primary">Sửa</a> |
+    <a asp-action="Index" class="btn btn-primary">Trở lại</a>
+</div>

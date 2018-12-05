@@ -1,0 +1,99 @@
+﻿
+@model ReflectionIT.Mvc.Paging.PagingList<ASPCore_Final.Models.NhaCungCap>
+@using ReflectionIT.Mvc.Paging;
+@addTagHelper *, ReflectionIT.Mvc.Paging
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="outer-w3-agile mt-3">
+    <h2>Danh sách nhà cung cấp</h2>
+    <form method="get" class="form-inline">
+        <input name="searchString" class="form-control" placeholder="Search..."
+               value="@Model.RouteValue["searchString"]" />
+        <button type="submit" class="btn btn-info">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
+        </button>
+    </form>
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Tạo mới</a>
+    </p>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.TenCongTy)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.DienThoai)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.DiaChi)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.MoTa)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td scope="row">
+                        @Html.DisplayFor(modelItem => item.TenCongTy)
+                    </td>
+                    <td scope="row">
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td scope="row">
+                        @Html.DisplayFor(modelItem => item.DienThoai)
+                    </td>
+                    <td scope="row">
+                        @Html.DisplayFor(modelItem => item.DiaChi)
+                    </td>
+                    <td scope="row">
+                        @Html.DisplayFor(modelItem => item.MoTa)
+                    </td>
+                    <td scope="row">
+                        <a asp-action="Edit" asp-route-id="@item.MaNcc" class="btn btn-primary">Sửa</a> |
+                        <a asp-action="Details" asp-route-id="@item.MaNcc" class="btn btn-primary">Xem chi tiết</a> |
+
+                        <button type="button" class="btn btn-primary" onclick="return _delete()" id="btnDelete">Xóa</button>
+                        <script>
+                            function _delete() {
+                                var cf = confirm('Bạn có muốn xoá nhà cung cấp này?');
+                                if (cf) {
+                                    $.ajax({
+                                        url: '/api/NhaCungCaps/' + @item.MaNcc,
+                                        type: "Delete",
+                                        contentType: "application/json; charset=utf-8",
+                                        dataType: "json",
+                                        async: true,
+                                        success: function (result) {
+                                            alert("Xoá nhà cung cấp thành công");
+                                        },
+                                        error: function (errormessage) {
+                                            alert(errormessage.responseText);
+                                        }
+                                    });
+                                }
+                            }
+                        </script>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <nav class="navbar-default justify-content-center">
+
+
+        @await this.Component.InvokeAsync("Pager", new { pagingList = this.Model, @searchString = @ViewBag.SearchString, @class = "page-item" })
+
+
+    </nav>
+</div>

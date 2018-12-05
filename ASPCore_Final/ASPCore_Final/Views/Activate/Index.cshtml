@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_frontEnd.cshtml";
+}
+@section breadcumb{
+    <div class="breadcrumbs">
+        <div class="container">
+            <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+                <li><a asp-controller="Home" asp-action="Index"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Trang chủ</a></li>
+                <li class="active">Kích hoạt tài khoản</li>
+            </ol>
+        </div>
+    </div>
+}
+    <div class="alert alert-info alert-dismissable">
+        <a class="panel-close close" data-dismiss="alert">×</a>
+        <i class="fa fa-coffee"></i>
+        Sau khi kích hoạt <strong>thành công</strong> bạn sẽ được chuyển đến trang đăng nhập.
+    </div>    
+    <h3></h3>
+    <form asp-controller="Activate" asp-action="Activate">
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        <button type="submit" class="btn-warning">Kích hoạt</button>
+    </form>

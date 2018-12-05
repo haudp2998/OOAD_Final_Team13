@@ -1,0 +1,23 @@
+﻿@model IEnumerable<ASPCore_Final.Models.HangHoa>
+@{
+    Layout = "";
+}
+@if (Model.Count() > 0)
+{
+    <h5 style="color:aquamarine">Có (@Model.Count()) kết quả tìm thấy:</h5>
+}
+else
+{
+    <h5 style="color:aquamarine" class="hidden">Có (@Model.Count()) kết quả tìm thấy:</h5>
+}
+<br />
+<ul type="none">
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+
+            <li style="margin:10px;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"><a asp-action="ChiTiet" asp-controller="HangHoa" asp-route-mahh="@item.MaHh"><img src="~/HangHoa/@item.Hinh" style="width:50px;height:50px;" /><span>@item.TenHh</span></a></li>
+        }
+    }
+</ul>

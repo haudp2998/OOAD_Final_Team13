@@ -55,40 +55,31 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <h2 class="main-title-w3layouts mb-2 text-center text-white">Login</h2>
             <!--// main-heading -->
             <div class="form-body-w3-agile text-center w-lg-50 w-sm-50 w-50 mx-auto mt-5">
-                
-                    @using (Html.BeginForm("Login", "Admin/Login", FormMethod.Post))
-                    {
-                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-                       
-                            <div class="form-group">
-                                <label asp-for="Email" class="control-label"> Email</label>
-                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control",@placeholder="Email", @autofocus = "autofocus" })
+                <form method="post" asp-controller="admin/Login" asp-action="Login">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" autofocus="autofocus" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="matKhau" class="control-label"> Mật Khẩu</label>
+                        <input asp-for="matKhau" type="password" class="form-control" />
+                        <span asp-validation-for="matKhau" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Login" class="btn btn-primary error-w3l-btn mt-sm-5 mt-3 px-4" />
+                    </div>
+                </form>
+             
 
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="matKhau" class="control-label"> Mật khẩu</label>
-                                @Html.PasswordFor(model => model.matKhau, new { @class = "form-control", @placeholder = "Mật khẩu" })
-                            </div>
-                            <div class="d-sm-flex justify-content-between">
-                                <div class="form-check col-md-6 text-sm-left text-center">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">Remember me</label>
-                                </div>
-                                <div class="forgot col-md-6 text-sm-right text-center">
-                                    <a href="forgot.html">forgot password?</a>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary error-w3l-btn mt-sm-5 mt-3 px-4">Login</button>
-                      
-                    }
-                
-                    <p class="paragraph-agileits-w3layouts mt-4">
-                        Don't have an account
-                        <a href="register.html">Create an account</a>
-                    </p>
-                    <h1 class="paragraph-agileits-w3layouts mt-2">
-                        <a href="index.html">Back to Home</a>
-                    </h1>
+                <p class="paragraph-agileits-w3layouts mt-4">
+                    Don't have an account
+                    <a href="register.html">Create an account</a>
+                </p>
+                <h1 class="paragraph-agileits-w3layouts mt-2">
+                    <a href="index.html">Back to Home</a>
+                </h1>
 
 
             </div>

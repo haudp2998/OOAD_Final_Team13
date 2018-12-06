@@ -1,0 +1,41 @@
+﻿@model ASPCore_Final.Models.HoiDap;
+@{
+    ViewData["Title"] = "Xem";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="bootstrap-tab-text-grids">
+    <div class="bootstrap-tab-text-grids" style="margin:0 0 5em;">
+        <div class="bootstrap-tab-text-grid">
+            @{
+                ESHOPContext db = new ESHOPContext();
+                KhachHang khachHang = db.KhachHang.SingleOrDefault(p => p.MaKh == Model.MaKh);
+            }
+            <div class="bootstrap-tab-text-grid-left">
+                <img src="~/UserAvatar/@khachHang.Hinh" style="width:120px;height:120px;" alt="" class="img-responsive" />
+            </div>
+            <div class="bootstrap-tab-text-grid-right">
+                <ul>
+                    <li><a href="#">@khachHang.HoTen</a></li>
+                    <li style="font-size:small"><span>@Model.NgayDua</span></li>
+                </ul>
+                <p>
+                    @Model.CauHoi
+                </p>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <div class="add-review">
+        @if(ViewData["reply"] != null)
+        {
+            <div class="alert alert-info">@ViewData["reply"]</div>
+        }
+        <h4>Trả  lời</h4>
+        <form asp-action="Xem" asp-route-id="@Model.MaHd" method="post">
+            <textarea type="text" name="traloi" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Hãy nhập gì đó...';}" required="">Hãy nhập gì đó...</textarea>
+            <input type="submit" value="Trả lời">
+        </form>
+    </div>
+</div>
+

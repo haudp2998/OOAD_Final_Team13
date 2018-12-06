@@ -37,6 +37,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link href="~/Admin/css/style.css" rel="stylesheet" type="text/css" media="all" />
     <!--// Common Css -->
     <!-- Nav Css -->
+    <link href="~/css/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/Admin/css/style4.css">
     <!--// Nav Css -->
     <!-- Fontawesome Css -->
@@ -48,7 +49,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
     <!--//web-fonts-->
 </head>
-
+@{
+    ESHOPContext db = new ESHOPContext();
+    int c_hoidaps = db.HoiDap.Where(p => p.TrangThaiTl == false).ToList().Count();
+    int c_hoadons = db.HoaDon.Where(p => p.MaTrangThai == 0).ToList().Count();
+}
 <body>
     <div class="wrapper">
         <!-- Sidebar Holder -->
@@ -75,10 +80,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </li>
 
                 <li>
-                    <a href="mailbox.html">
+                    <a href="/Admin/HoiDap">
                         <i class="far fa-envelope"></i>
                         Phản hồi
-                        <span class="badge badge-secondary float-md-right bg-danger">5 New</span>
+                        <span class="badge badge-secondary float-md-right bg-danger">@c_hoidaps</span>
                     </a>
                 </li>
 
@@ -92,6 +97,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <a href="/Admin/HoaDons">
                         <i class="fas fa-money-bill-alt"></i>
                         Hóa đơn
+                        <span class="badge badge-secondary float-md-right bg-danger">@c_hoadons</span>
                     </a>
                 </li>
                 <li>

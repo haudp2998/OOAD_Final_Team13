@@ -1,0 +1,95 @@
+﻿@model ReflectionIT.Mvc.Paging.PagingList<ASPCore_Final.Models.HoiDap>
+@using ReflectionIT.Mvc.Paging;
+@addTagHelper *, ReflectionIT.Mvc.Paging
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="bootstrap-tab animated wow slideInUp" data-wow-delay=".5s">
+    <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+        <ul id="myTab" class="nav nav-tabs" role="tablist">
+            @{
+                ESHOPContext db = new ESHOPContext();
+                var hoiDapsChuaDoc = db.HoiDap.Where(p => p.TrangThaiTl == false).OrderByDescending(p=>p.NgayDua).ToList();
+                int c_hoiDapsChuaDoc = db.HoiDap.Where(p => p.TrangThaiTl == false).ToList().Count();
+                var hoiDapsDaDoc = db.HoiDap.Where(p => p.TrangThaiTl == true).OrderByDescending(p => p.NgayDua).ToList();
+                int c_hoiDapsDaDoc = db.HoiDap.Where(p => p.TrangThaiTl == true).ToList().Count();
+            }
+            <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Phản hồi chưa đọc<span class="badge badge-info">@c_hoiDapsChuaDoc</span></a></li>
+            <li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">Phản hồi đã đọc <span class ="badge badge-info">@c_hoiDapsDaDoc</span></a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div role="tabpanel" class="tab-pane fade in active bootstrap-tab-text" id="home" aria-labelledby="home-tab">
+                <div class="bootstrap-tab-text-grids">
+                    @foreach (var item in hoiDapsChuaDoc)
+                    {
+
+                        <div class="bootstrap-tab-text-grid">
+                            @{
+                                KhachHang khachHang = db.KhachHang.SingleOrDefault(p => p.MaKh == item.MaKh);
+                            }
+                            <div class="bootstrap-tab-text-grid-left">
+                                <img src="~/UserAvatar/@khachHang.Hinh" alt="" style="width:80px;height:80px;" class="img-responsive" />
+                            </div>
+                            <div class="bootstrap-tab-text-grid-right">
+                                <ul>
+
+                                    <li><a href="#">@khachHang.HoTen</a></li>
+                                    <li><a asp-action="Xem" asp-controller="HoiDap" asp-route-id="@item.MaHd"><span class="glyphicon glyphicon-share" aria-hidden="true"></span>Xem</a></li>
+                                    <li style="font-size:small"><span>@item.NgayDua</span></li>
+                                </ul>
+                                <p>
+                                    @item.CauHoi
+                                </p>
+                            </div>
+                            <br />
+                            <div class="clearfix"> </div>
+                        </div>
+
+                    }
+                </div>
+                </div>
+            <div role="tabpanel" class="tab-pane fade bootstrap-tab-text" id="profile" aria-labelledby="profile-tab">
+                <div class="bootstrap-tab-text-grids">
+                    <div class="bootstrap-tab-text-grids" style="margin:0 0 5em;">
+                        @foreach (var item in hoiDapsDaDoc)
+                        {
+
+                        <div class="bootstrap-tab-text-grid">
+                            @{
+                                KhachHang khachHang = db.KhachHang.SingleOrDefault(p => p.MaKh == item.MaKh);
+                            }
+                            <div class="bootstrap-tab-text-grid-left">
+                                <img src="~/UserAvatar/@khachHang.Hinh" style="width:80px;height:80px;" alt="" class="img-responsive" />
+                            </div>
+                            <div class="bootstrap-tab-text-grid-right">
+                                <ul>
+                                    <li><a href="#">@khachHang.HoTen</a></li>
+                                    <li><a asp-action="Xoa" asp-route-id="@item.MaHd"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>Xóa</a></li>
+                                    <li style="font-size:small"><span>@item.NgayDua</span></li>
+                                </ul>
+                                <p>
+                                    @item.CauHoi
+                                </p>
+                            </div>
+
+                            <div class="clearfix"> </div>
+                            <br />
+                        </div>
+                            }
+                    </div>
+                </div>
+            </div>
+            <nav class="navbar-default justify-content-center">
+
+                @await this.Component.InvokeAsync("Pager", new { pagingList = this.Model, @searchString = @ViewBag.SearchString, @class = "page-item" })
+
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+
+

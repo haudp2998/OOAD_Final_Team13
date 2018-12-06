@@ -12434,11 +12434,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Dell\\Downloads\\Github\\ASPCore_Final\\ASPCore_Final\\ASPCore_Final\\ASPCore_Final.csproj",
+      "projectUniqueName": "C:\\Users\\Dell\\Downloads\\Github\\ASPNETCore_Final\\ASPCore_Final\\ASPCore_Final\\ASPCore_Final.csproj",
       "projectName": "ASPCore_Final",
-      "projectPath": "C:\\Users\\Dell\\Downloads\\Github\\ASPCore_Final\\ASPCore_Final\\ASPCore_Final\\ASPCore_Final.csproj",
+      "projectPath": "C:\\Users\\Dell\\Downloads\\Github\\ASPNETCore_Final\\ASPCore_Final\\ASPCore_Final\\ASPCore_Final.csproj",
       "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Dell\\Downloads\\Github\\ASPCore_Final\\ASPCore_Final\\ASPCore_Final\\obj\\",
+      "outputPath": "C:\\Users\\Dell\\Downloads\\Github\\ASPNETCore_Final\\ASPCore_Final\\ASPCore_Final\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

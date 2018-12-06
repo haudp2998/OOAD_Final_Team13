@@ -135,31 +135,7 @@ namespace ASPCore_Final.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            HttpContext.Session.Set<string>("mess", "Hóa đơn của bạn đã được gửi tới cửa hàng vui lòng kiểm tra mail để biết trạng thái đơn hàng của bạn . ESHOP");
-           
-
-            // lấy email khách 
-            KhachHang kh = HttpContext.Session.Get<KhachHang>("user");
-            MailMessage mm = new MailMessage("eshoppingmanager@gmail.com",kh.Email);
-            mm.Subject = "Thông báo đơn hàng";
-            string content = "<h1>{0}</h1> <br/> <div class='text text-success'><h2>Chào mừng bạn đến với ESHOP.</h2></div> <br> <h5>Bạn vừa tạo một đơn hàng ở ESHOP. Đơn hàng của bạn đã được gửi tới cửa hàng : <br/> Thông tin đơn hàng : <br/>";
-            content = content + "<table border='1px' style='font-size:15px;border-collapse: collapse;text-align:center'><tr><th>Tên sản phẩm</th><th>Kích cở</th><th>Số lượng</th><th>Đơn giá</th></tr>";
-            double tongtien = 0;
-            foreach (var item in Carts)
-            {
-                tongtien += item.ThanhTien;
-                content = content + "<tr><td>" + item.TenHh + "</td><td>" + item.KichCo + "</td><td>"+item.SoLuong+"</td><td>" + item.GiaBan.ToString("#,##0")+ "</td></tr>";
-            }
-            content = content + "<tr><td colspan='3'>Tông thanh toán : </td><td>"+tongtien.ToString("#,##0") + "</td></tr></table><br />";
-            content = content + "<div>Cảm ơn bạn đã ủng hộ ESHOP. Thân</div>";
-            mm.Body = string.Format(content,kh.HoTen);
-            mm.IsBodyHtml = true;
-            SmtpClient smtp = new SmtpClient();
-            smtp.Host = "smtp.gmail.com";
-            smtp.Port = 587;
-            smtp.EnableSsl = true;
-            smtp.Credentials = new System.Net.NetworkCredential("eshoppingmanager@gmail.com", "eshop147258369");
-            smtp.Send(mm);
+            HttpContext.Session.Set<string>("mess", "Hóa đơn của bạn đã được gửi tới cửa hàng vui lòng chờ kiểm tra mail để biết trạng thái đơn hàng của bạn . ESHOP");
             HttpContext.Session.Remove("GioHang");
             return RedirectToAction("Index");
         }

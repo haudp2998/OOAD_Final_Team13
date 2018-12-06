@@ -70,34 +70,33 @@
                         <a asp-action="Edit" asp-route-id="@item.MaNv" class="btn btn-primary">Sửa</a> |
                         <a asp-action="Details" asp-route-id="@item.MaNv" class="btn btn-primary">Xem chi tiết</a> |
 
-                        <button type="button" class="btn btn-primary" onclick="return _delete()" id="btnDelete">Xóa</button>
-                        <script>
-                            function _delete() {
-                                var cf = confirm('Bạn có muốn xoá nhân viên này?');
-                                if (cf) {
-                                    $.ajax({
-                                        url: '/api/NhanViens/' + @item.MaNv,
-                                        type: "Delete",
-                                        contentType: "application/json; charset=utf-8",
-                                        dataType: "json",
-                                        async: true,
-                                        success: function (result) {
-                                            alert("Xoá nhân viên thành công");
-                                        },
-                                        error: function (errormessage) {
-                                            alert(errormessage.responseText);
-                                        }
-                                    });
-                                }
-                            }
-                        </script>
+                        <button type="button" class="btn btn-primary" onclick="_delete(@item.MaNv)" id="btnDelete">Xóa</button>
                     </td>
                 </tr>
             }
         </tbody>
 
     </table>
-   
+    <script>
+        function _delete(id) {
+            var cf = confirm('Bạn có muốn xoá nhân viên ID: ' + id + '?');
+            if (cf) {
+                $.ajax({
+                    url: '/api/NhanViens/' + id,
+                    type: "Delete",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    async: true,
+                    success: function (result) {
+                        alert("Xoá nhân viên thành công");
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
+        }
+    </script>
     <nav class="navbar-default justify-content-center"  >
    
 

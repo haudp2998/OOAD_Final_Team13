@@ -93,7 +93,7 @@ namespace ASPCore_Final.Controllers
                 _context.SaveChanges();
                 MailMessage mm = new MailMessage("eshoppingmanager@gmail.com", khachHang.Email);
                 mm.Subject = "Kích hoạt tài khoản Eshop";
-                mm.Body = string.Format("Xin chào: <h1>{0}</h1> <br/> <h3>Click vào <a href='https://localhost:5001/Activate/Index'>link</a> này để kích hoạt tài khoản.</h3>", khachHang.HoTen);
+                mm.Body = string.Format("Xin chào: <h1>{0}</h1> <br/> <h3>Click vào <a href='https://localhost:44318/activate/index'>link</a> này để kích hoạt tài khoản.</h3>", khachHang.HoTen);
                 mm.IsBodyHtml = true;
                 SmtpClient smtp = new SmtpClient();
                 smtp.Host = "smtp.gmail.com";

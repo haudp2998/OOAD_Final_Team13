@@ -212,22 +212,20 @@ namespace ASPCore_Final.Areas.Admin.Controllers
                 foreach (var item in cthd)
                 {
                     HangHoa hangHoa = _context.HangHoa.SingleOrDefault(p => p.MaHh == item.MaHh);
-                    var giamgia = item.DonGia - item.DonGia * item.GiamGia;
+                    var giamgia = item.DonGia + item.DonGia * item.GiamGia;
                     CartItem ct = new CartItem
                     {
                         MaHh = hangHoa.MaHh,
                         TenHh = hangHoa.TenHh,
                         Hinh = hangHoa.Hinh,
                         KichCo = item.KichCo,
-                        GiaBan = Convert.ToDouble(giamgia),
-                        SoLuong = item.SoLuong
+                        GiaBan = Convert.ToDouble(giamgia)
                     };
-
                     tongtien += ct.ThanhTien;
-                    content = content + "<tr><td>" + hangHoa.TenHh + "</td><td>" + item.KichCo + "</td><td>" + item.SoLuong + "</td><td>" + ct.GiaBan.ToString("#,##0") +"</td><td>" + ct.ThanhTien.ToString("#,##0") + "</td></tr>";
+                    content = content + "<tr><td>" + hangHoa.TenHh + "</td><td>" + item.KichCo + "</td><td>" + item.SoLuong + "</td><td>" + ct.GiaBan.ToString("#,##0") +"<td></td>" + ct.ThanhTien.ToString("#,##0") + "</td></tr>";
                 }
-                content = content + "<tr><td colspan='4'>Tông thanh toán : </td><td>" + tongtien.ToString("#,##0") + "</td></tr></table><br />";
-                content = content + "<div>Đơn hàng của bạn sẽ được chuyển đến trong vài ngày tới . Cảm ơn bạn đã ủng hộ ESHOP. Thân</div>";
+                content = content + "<tr><td colspan='3'>Tông thanh toán : </td><td>" + tongtien.ToString("#,##0") + "</td></tr></table><br />";
+                content = content + "<div>Cảm ơn bạn đã ủng hộ ESHOP. Thân</div>";
                 mm.Body = string.Format(content, kh.HoTen);
                 mm.IsBodyHtml = true;
                 SmtpClient smtp = new SmtpClient();

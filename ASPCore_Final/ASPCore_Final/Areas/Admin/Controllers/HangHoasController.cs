@@ -157,38 +157,6 @@ namespace ASPCore_Final.Areas.Admin.Controllers
 
             return Ok(hh);
         }
-        // GET: Admin/HangHoas/Delete/5
-        [HttpGet("/admin/HangHoas/Delete/{id}")]
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var hangHoa = await _context.HangHoa
-                .Include(h => h.MaLoaiNavigation)
-                .Include(h => h.MaNccNavigation)
-                .FirstOrDefaultAsync(m => m.MaHh == id);
-            if (hangHoa == null)
-            {
-                return NotFound();
-            }
-
-            return View(hangHoa);
-        }
-
-        // POST: Admin/HangHoas/Delete/5
-        [HttpPost("/admin/HangHoas/Delete/{id}"), ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var hangHoa = await _context.HangHoa.FindAsync(id);
-            _context.HangHoa.Remove(hangHoa);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
         private bool HangHoaExists(int id)
         {
             return _context.HangHoa.Any(e => e.MaHh == id);

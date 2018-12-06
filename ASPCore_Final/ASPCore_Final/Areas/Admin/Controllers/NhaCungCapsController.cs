@@ -147,36 +147,7 @@ namespace ASPCore_Final.Areas.Admin.Controllers
 
             return Ok(ncc);
         }
-        // GET: Admin/NhaCungCaps/Delete/5
-        [HttpGet("/admin/NhaCungCaps/Delete/{id}")]
-        public async Task<IActionResult> Delete(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var nhaCungCap = await _context.NhaCungCap
-                .FirstOrDefaultAsync(m => m.MaNcc == id);
-            if (nhaCungCap == null)
-            {
-                return NotFound();
-            }
-
-            return View(nhaCungCap);
-        }
-
-        // POST: Admin/NhaCungCaps/Delete/5
-        [HttpPost("/admin/NhaCungCaps/Delete/{id}"), ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
-        {
-            var nhaCungCap = await _context.NhaCungCap.FindAsync(id);
-            _context.NhaCungCap.Remove(nhaCungCap);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
+    
         private bool NhaCungCapExists(string id)
         {
             return _context.NhaCungCap.Any(e => e.MaNcc == id);

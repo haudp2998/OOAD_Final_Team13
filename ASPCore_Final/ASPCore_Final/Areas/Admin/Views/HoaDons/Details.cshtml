@@ -1,79 +1,62 @@
-﻿@model ASPCore_Final.Models.HoaDon
+﻿@model IEnumerable<ASPCore_Final.Models.ChiTietHd>
 
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Chi tiết hóa đơn</h2>
 
 <div>
-    <h4>HoaDon</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.NgayDat)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NgayDat)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NgayGiao)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NgayGiao)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.HoTen)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.HoTen)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DiaChi)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DiaChi)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.SdtNguoinhan)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.SdtNguoinhan)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.GhiChu)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.GhiChu)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.PhiVanChuyen)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PhiVanChuyen)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.MaNv)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.MaNv)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.MaKhNavigation)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.MaKhNavigation.Email)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.MaTrangThaiNavigation)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.MaTrangThaiNavigation.TenTrangThai)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.MaHd">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.MaHd)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.MaHh)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.DonGia)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.GiamGia)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.SoLuong)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.KichCo)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td scope="row">
+                        @Html.DisplayFor(modelItem => item.MaHd)
+                    </td>
+                    <td scope="row">
+                        @Html.DisplayFor(modelItem => item.MaHh)
+                    </td>
+                    <td scope="row">
+                        @Html.DisplayFor(modelItem => item.DonGia)
+                    </td>
+                    <td scope="row">
+                        @Html.DisplayFor(modelItem => item.GiamGia)
+                    </td>
+                    <td scope="row">
+                        @Html.DisplayFor(modelItem => item.SoLuong)
+                    </td>
+                    <td scope="row">
+                        @Html.DisplayFor(modelItem => item.KichCo)
+                    </td>
+                 
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>

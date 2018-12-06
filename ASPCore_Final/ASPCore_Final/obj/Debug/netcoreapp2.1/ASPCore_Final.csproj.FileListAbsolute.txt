@@ -24,6 +24,7 @@ C:\Users\Dell\Downloads\Github\ASPNETCore_Final\ASPCore_Final\ASPCore_Final\obj\
 C:\Users\Dell\Downloads\Github\ASPNETCore_Final\ASPCore_Final\ASPCore_Final\obj\Debug\netcoreapp2.1\Razor\Areas\Admin\Views\HoiDap\Xem.g.cshtml.cs
 C:\Users\Dell\Downloads\Github\ASPNETCore_Final\ASPCore_Final\ASPCore_Final\obj\Debug\netcoreapp2.1\Razor\Areas\Admin\Views\Home\Index.g.cshtml.cs
 C:\Users\Dell\Downloads\Github\ASPNETCore_Final\ASPCore_Final\ASPCore_Final\obj\Debug\netcoreapp2.1\Razor\Areas\Admin\Views\KhachHangs\Create.g.cshtml.cs
+C:\Users\Dell\Downloads\Github\ASPNETCore_Final\ASPCore_Final\ASPCore_Final\obj\Debug\netcoreapp2.1\Razor\Areas\Admin\Views\KhachHangs\Details.g.cshtml.cs
 C:\Users\Dell\Downloads\Github\ASPNETCore_Final\ASPCore_Final\ASPCore_Final\obj\Debug\netcoreapp2.1\Razor\Areas\Admin\Views\KhachHangs\Edit.g.cshtml.cs
 C:\Users\Dell\Downloads\Github\ASPNETCore_Final\ASPCore_Final\ASPCore_Final\obj\Debug\netcoreapp2.1\Razor\Areas\Admin\Views\KhachHangs\Index.g.cshtml.cs
 C:\Users\Dell\Downloads\Github\ASPNETCore_Final\ASPCore_Final\ASPCore_Final\obj\Debug\netcoreapp2.1\Razor\Areas\Admin\Views\Login\Index.g.cshtml.cs
@@ -73,4 +74,3 @@ C:\Users\Dell\Downloads\Github\ASPNETCore_Final\ASPCore_Final\ASPCore_Final\obj\
 C:\Users\Dell\Downloads\Github\ASPNETCore_Final\ASPCore_Final\ASPCore_Final\obj\Debug\netcoreapp2.1\ASPCore_Final.dll
 C:\Users\Dell\Downloads\Github\ASPNETCore_Final\ASPCore_Final\ASPCore_Final\obj\Debug\netcoreapp2.1\ASPCore_Final.pdb
 C:\Users\Dell\Downloads\Github\ASPNETCore_Final\ASPCore_Final\ASPCore_Final\obj\Debug\netcoreapp2.1\ASPCore_Final.csproj.CopyComplete
-C:\Users\Dell\Downloads\Github\ASPNETCore_Final\ASPCore_Final\ASPCore_Final\obj\Debug\netcoreapp2.1\Razor\Areas\Admin\Views\KhachHangs\Details.g.cshtml.cs

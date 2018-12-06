@@ -148,35 +148,7 @@ namespace ASPCore_Final.Areas.Admin.Controllers
 
             return Ok(kh);
         }
-        // GET: Admin/KhachHangs/Delete/5
-        [HttpGet("/admin/KhachHangs/Delete/{id}")]
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var khachHang = await _context.KhachHang
-                .FirstOrDefaultAsync(m => m.MaKh == id);
-            if (khachHang == null)
-            {
-                return NotFound();
-            }
-
-            return View(khachHang);
-        }
-
-        // POST: Admin/KhachHangs/Delete/5
-        [HttpPost("/admin/KhachHangs/Delete/{id}"), ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var khachHang = await _context.KhachHang.FindAsync(id);
-            _context.KhachHang.Remove(khachHang);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+       
         [HttpGet("/admin/KhachHangs/ChangeStatus")]
         public IActionResult ChangeStatus(int id)
         {

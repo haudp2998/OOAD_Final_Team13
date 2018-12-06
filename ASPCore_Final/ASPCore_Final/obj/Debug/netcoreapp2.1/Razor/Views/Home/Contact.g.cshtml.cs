@@ -69,7 +69,7 @@ using ASPCore_Final.Models;
             WriteLiteral("\r\n<!-- breadcrumbs -->\r\n<div class=\"breadcrumbs\">\r\n    <div class=\"container\">\r\n        <ol class=\"breadcrumb breadcrumb1 animated wow slideInLeft\" data-wow-delay=\".5s\">\r\n            <li>");
             EndContext();
             BeginContext(230, 123, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ece7a5a54b6f485b930b1de0c065fd96", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "698a46b648f441ef9268239ebc062571", async() => {
                 BeginContext(274, 75, true);
                 WriteLiteral("<span class=\"glyphicon glyphicon-home\" aria-hidden=\"true\"></span>Trang chủ");
                 EndContext();
@@ -120,7 +120,7 @@ using ASPCore_Final.Models;
             WriteLiteral("            <div class=\"col-md-8 mail-grid-left animated wow slideInLeft\" data-wow-delay=\".5s\">\r\n                ");
             EndContext();
             BeginContext(875, 344, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5b3f06bcb4cd4447b5c2b555a058be22", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "26d536806c8646a58182f7bea518ffa6", async() => {
                 BeginContext(938, 274, true);
                 WriteLiteral(@"
                     <textarea name=""cauhoi"" type=""text"" onfocus=""this.value = '';"" onblur=""if (this.value == '') {this.value = 'Hãy viết gì đó...';}"" required="""">Hãy viết gì đó...</textarea>
@@ -151,7 +151,7 @@ using ASPCore_Final.Models;
             WriteLiteral("\r\n            </div>\r\n            <div class=\"col-md-4 mail-grid-right animated wow slideInRight\" data-wow-delay=\".5s\">\r\n                <div class=\"mail-grid-right1\">\r\n                    ");
             EndContext();
             BeginContext(1408, 59, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "c7abfb7e24db47789c1b9d6d1a00cc03", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "d34560828bbd47edbc959aba45a6938f", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();

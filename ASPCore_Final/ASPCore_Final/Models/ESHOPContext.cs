@@ -33,7 +33,7 @@ namespace ASPCore_Final.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=THANHSANG\\SQLEXPRESS;Database=ESHOP;Integrated Security=True;");
+                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=ESHOP;Integrated Security=True;");
             }
         }
 

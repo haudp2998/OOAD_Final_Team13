@@ -32,9 +32,9 @@ namespace ASPCore_Final.Controllers
             }
             else
             {
-                ModelState.AddModelError("Lỗi", "Không tìm thấy tài khoản");
+                ModelState.AddModelError("Lỗi", "Không tìm thấy tài khoản. Bạn cần thực hiện đăng kí tài khoản!");
+                return View("Index");
             }
-            return View();
         }
     }
 }

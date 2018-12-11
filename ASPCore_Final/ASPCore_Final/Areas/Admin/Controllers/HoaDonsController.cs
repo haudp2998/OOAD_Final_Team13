@@ -24,7 +24,7 @@ namespace ASPCore_Final.Areas.Admin.Controllers
 
         // GET: Admin/HoaDons
         [HttpGet("/admin/HoaDons")]
-        public async Task<IActionResult> Index(string searchString, int page = 1, string sortExpression = "MaHd")
+        public async Task<IActionResult> Index(string searchString, int page = 1, string sortExpression = "MaTrangThaiNavigation")
         {
             var eSHOPContext = _context.HoaDon.AsNoTracking().Include(h => h.MaKhNavigation).Include(h => h.MaTrangThaiNavigation).AsQueryable();
             if (!string.IsNullOrEmpty(searchString))

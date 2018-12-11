@@ -120,7 +120,7 @@
 
                                 </div>
                             </div>
-                            <h4><a href="single.html">@item.TenHh</a></h4>
+                            <h4><a asp-action="ChiTiet" asp-controller="HangHoa" asp-route-mahh="@item.MaHh">@item.TenHh</a></h4>
                             @{ 
                                 double giaban = item.DonGia * (1 - item.GiamGia);
                             }

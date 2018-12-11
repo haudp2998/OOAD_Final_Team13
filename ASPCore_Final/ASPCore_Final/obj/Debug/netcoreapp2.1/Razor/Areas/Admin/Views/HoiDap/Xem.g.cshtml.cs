@@ -78,7 +78,7 @@ using ASPCore_Final.Models;
             WriteLiteral("            <div class=\"bootstrap-tab-text-grid-left\">\r\n                ");
             EndContext();
             BeginContext(546, 106, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "ca272f56a85a4376a731e817a331f378", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "676ed3881ce04476b824a9f79b021f90", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -163,7 +163,7 @@ AddHtmlAttributeValue("", 569, khachHang.Hinh, 569, 15, false);
             WriteLiteral("        <h4>Trả  lời</h4>\r\n        ");
             EndContext();
             BeginContext(1287, 326, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "969d54b8e1cd4c1880bb2893acf6027d", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "015641b8ad744944a803742fa63ce0cf", async() => {
                 BeginContext(1351, 255, true);
                 WriteLiteral("\r\n            <textarea type=\"text\" name=\"traloi\" onfocus=\"this.value = \'\';\" onblur=\"if (this.value == \'\') {this.value = \'Hãy nhập gì đó...\';}\" required=\"\">Hãy nhập gì đó...</textarea>\r\n            <input type=\"submit\" value=\"Trả lời\">\r\n        ");
                 EndContext();

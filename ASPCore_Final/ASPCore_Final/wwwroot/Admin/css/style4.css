@@ -33,11 +33,13 @@ a:focus {
 }
 
 .navbar-btn {
+    margin-left: -520px;
     box-shadow: none;
     outline: none !important;
     border: none;
     background: #4463dc;
 }
+
 
 .btn-info:focus,
 .btn-info.focus {

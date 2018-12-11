@@ -80,3 +80,8 @@ ASPCore_Final/.vs/ASPCore_Final/v15/Server/sqlite3/storage.ide-wal
 ASPCore_Final/.vs/ASPCore_Final/v15/Server/sqlite3/storage.ide-shm
 ASPCore_Final/.vs/ASPCore_Final/v15/.suo
 ASPCore_Final/.vs/ASPCore_Final/DesignTimeBuild/.dtbcache
+ASPCore_Final/ASPCore_Final/obj/Debug/netcoreapp2.1/Razor/Areas/Admin/Views/HoiDap/Xem.g.cshtml.cs
+ASPCore_Final/ASPCore_Final/obj/Debug/netcoreapp2.1/Razor/Areas/Admin/Views/HoiDap/Index.g.cshtml.cs
+ASPCore_Final/ASPCore_Final/obj/Debug/netcoreapp2.1/ASPCore_Final.RazorCoreGenerate.cache
+ASPCore_Final/ASPCore_Final/ASPCore_Final.csproj.user
+ASPCore_Final/ASPCore_Final/obj/Debug/netcoreapp2.1/Razor/Views/MyHoaDons/Index.g.cshtml.cs

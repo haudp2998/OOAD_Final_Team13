@@ -11,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="MaHh" />
             <div class="form-group">
@@ -26,7 +26,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Hinh" class="control-label"></label>
-                <input asp-for="Hinh" class="form-control" />
+                <input type="file" asp-for="Hinh" name="fHinh" class="form-control" />
                 <span asp-validation-for="Hinh" class="text-danger"></span>
             </div>
             <div class="form-group">

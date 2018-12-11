@@ -1,0 +1,165 @@
+﻿@model ReflectionIT.Mvc.Paging.PagingList<ASPCore_Final.Models.HoaDon>
+@using ReflectionIT.Mvc.Paging;
+@addTagHelper *, ReflectionIT.Mvc.Paging
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_frontEnd.cshtml";
+}
+@section breadcumb{
+    <div class="breadcrumbs">
+        <div class="container">
+            <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+                <li><a asp-action="Index" asp-controller="Home"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Trang chủ</a></li>
+                <li class="active">Hóa đơn của bạn</li>
+            </ol>
+        </div>
+    </div>
+}
+<br />
+@if (Context.Session.Get<KhachHang>("user") != null)
+{
+    KhachHang k = Context.Session.Get<KhachHang>("user");
+    <h3 class="alert alert-info" style="font-size:25px;">Thông tin hóa đơn của bạn</h3>
+    <div class="bootstrap-tab animated wow slideInUp" data-wow-delay=".5s">
+        <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+            @{
+                ESHOPContext db = new ESHOPContext();
+                List<HoaDon> hd_cxl = db.HoaDon.Where(p => p.MaTrangThai == 0 && p.MaKh == k.MaKh ).ToList();
+                List<HoaDon> hd_xl = db.HoaDon.Where(p => p.MaTrangThai == 1 && p.MaKh == k.MaKh).ToList();
+                List<HoaDon> hd_huy = db.HoaDon.Where(p => p.MaTrangThai == 2 && p.MaKh == k.MaKh).ToList();
+            }
+            <ul id="myTab" class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Hóa đơn chưa xử lý</a></li>
+                <li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">Hóa đơn đã xử lý</a></li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active bootstrap-tab-text" id="home" aria-labelledby="home-tab">
+                    <div class="bootstrap-tab-text-grids">
+                        @foreach (var hd in hd_cxl)
+                        {
+                            <div class="row table-bordered" style="position:relative;background-color:lightblue">
+                                <div class="col-md-4" style="text-align:left;padding:10px;">
+                                    <span>Mã đơn hàng :<span class="text text-info"> @hd.MaHd</span></span><br />
+                                    <span>Đặt ngày : @hd.NgayDat</span>
+                                </div>
+                                <div class="col-md-3" style="text-align:center;padding:10px;">
+                                    <span>Người nhận :</span><br />
+                                    <span class="text text-info">@hd.HoTen</span>
+                                </div>
+                                @{
+                                    List<ChiTietHd> chiTietHds = db.ChiTietHd.Where(p => p.MaHd == hd.MaHd).ToList();
+                                    double tongtien = 0;
+                                    foreach (var ct in chiTietHds)
+                                    {
+                                        tongtien += Convert.ToDouble(ct.SoLuong * ct.DonGia * (1 - ct.GiamGia));
+                                    }
+                                }
+                                <div class="col-md-3" style="text-align:right;padding:10px;">
+                                    <span>Tổng tiền :</span><br />
+                                    <span class="text text-danger">@tongtien.ToString("#,##0") đ</span>
+                                </div>
+                                <div class="col-md-2 btn btn-danger" style="text-align:right;margin-top: 15px;margin-left: 40px; width: 130px;color:white">
+                                    <a asp-action="HuyHoaDon" asp-controller="MyHoaDons" asp-route-mahd ="@hd.MaHd">Hủy đơn hàng</a>
+                                </div>
+                            </div>
+                            @foreach (var item in chiTietHds)
+                            {
+                                HangHoa hh = db.HangHoa.Find(item.MaHh);
+                                double giaban = Convert.ToDouble(item.DonGia * (1 - item.GiamGia));
+                                double thanhtien = giaban * item.SoLuong;
+                                <div class="row table-bordered" style="text-align:center">
+                                    <div class="col-md-2 text text-info" style="padding:10px;"><img src="~/HangHoa/@hh.Hinh" style="width:80px;height:80px;" alt="Alternate Text" /></div>
+                                    <div class="col-md-4 text text-info" style="padding-top:40px;">@hh.TenHh</div>
+                                    <div class="col-md-1 text text-info" style="padding-top:40px;">@item.KichCo</div>
+                                    <div class="col-md-1 text text-info" style="padding-top:40px;">@item.SoLuong</div>
+                                    <div class="col-md-1 text text-info" style="padding-top:40px;text-align:right">@giaban.ToString("#,##0")</div>
+                                    <div class="col-md-1 text text-info" style="padding-top:40px;text-align:right">@thanhtien.ToString("#,##0")</div>
+                                    <div class="col-md-2 text-danger" style="padding-top:40px;text-align:right">
+                                        <a asp-action="XoaCTHD" asp-controller="MyHoaDons" asp-route-mact="@item.MaCt" class=" glyphicon glyphicon-trash"></a>
+                                    </div>
+                                </div>
+                            }
+                            <div class="row table-bordered" style="text-align:center">
+                                <div class="col-md-3" style="background-color:darkcyan">Trạng thái đơn hàng :</div>
+                                <div class="col-md-9 table-bordered">
+                                    @{
+                                        TrangThai tt = db.TrangThai.SingleOrDefault(p => p.MaTrangThai == hd.MaTrangThai);
+                                    }
+                                    <div class="col-md-3 label label-info">
+                                        @tt.TenTrangThai
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                        }
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade bootstrap-tab-text" id="profile" aria-labelledby="profile-tab">
+                    <div class="bootstrap-tab-text-grids">
+                        <div class="bootstrap-tab-text-grids" style="margin:0 0 5em;">
+                            @foreach (var hd in hd_xl)
+                            {
+                                <div class="row table-bordered" style="position:relative;background-color:lightblue">
+                                    <div class="col-md-4" style="text-align:left;padding:10px;">
+                                        <span>Mã đơn hàng :<span class="text text-info"> @hd.MaHd</span></span><br />
+                                        <span>Đặt ngày : @hd.NgayDat</span>
+                                    </div>
+                                    <div class="col-md-4" style="text-align:center;padding:10px;">
+                                        <span>Người nhận :</span><br />
+                                        <span class="text text-info">@hd.HoTen</span>
+                                    </div>
+                                    @{
+                                        List<ChiTietHd> chiTietHds = db.ChiTietHd.Where(p => p.MaHd == hd.MaHd).ToList();
+                                        double tongtien = 0;
+                                        foreach (var ct in chiTietHds)
+                                        {
+                                            tongtien += Convert.ToDouble(ct.SoLuong * ct.DonGia * (1 - ct.GiamGia));
+                                        }
+                                    }
+                                    <div class="col-md-4" style="text-align:right;padding:10px;">
+                                        <span>Tổng tiền :</span><br />
+                                        <span class="text text-danger">@tongtien.ToString("#,##0") đ</span>
+                                    </div>
+                                </div>
+                                @foreach (var item in chiTietHds)
+                                {
+                                    HangHoa hh = db.HangHoa.Find(item.MaHh);
+                                    double giaban = Convert.ToDouble(item.DonGia * (1 - item.GiamGia));
+                                    double thanhtien = giaban * item.SoLuong;
+                                    <div class="row table-bordered" style="text-align:center">
+                                        <div class="col-md-2 text text-info" style="padding:10px;"><img src="~/HangHoa/@hh.Hinh" style="width:80px;height:80px;" alt="Alternate Text" /></div>
+                                        <div class="col-md-4 text text-info" style="padding-top:40px;">@hh.TenHh</div>
+                                        <div class="col-md-1 text text-info" style="padding-top:40px;">@item.KichCo</div>
+                                        <div class="col-md-1 text text-info" style="padding-top:40px;">@item.SoLuong</div>
+                                        <div class="col-md-2 text text-info" style="padding-top:40px;text-align:right">@giaban.ToString("#,##0")</div>
+                                        <div class="col-md-2 text text-info" style="padding-top:40px;text-align:right">@thanhtien.ToString("#,##0")</div>
+                                    </div>
+                                }
+                                <div class="row table-bordered" style="text-align:center">
+                                    <div class="col-md-3" style="background-color:darkcyan">Trạng thái đơn hàng :</div>
+                                    <div class="col-md-9 table-bordered">
+                                        @{
+                                            TrangThai tt = db.TrangThai.SingleOrDefault(p => p.MaTrangThai == hd.MaTrangThai);
+                                        }
+                                        <div class="col-md-3 label label-danger">
+                                            @tt.TenTrangThai
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+}
+else
+{
+<div class="alert alert-danger">Bạn cần đăng nhập để xem hóa đơn</div>
+}
+
+
+

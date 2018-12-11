@@ -92,30 +92,10 @@
                         @Html.DisplayFor(modelItem => item.MaTrangThaiNavigation.TenTrangThai)
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.MaHd" class="btn btn-primary">Sửa</a> |
-                        <a asp-action="Details" asp-route-id="@item.MaHd" class="btn btn-primary">Xem chi tiết</a> |
+                       
+                        <a asp-action="Details" asp-route-id="@item.MaHd" class="btn btn-primary">Xem chi tiết</a> 
 
-                        <button type="button" class="btn btn-primary" onclick="return _delete()" id="btnDelete">Xóa</button>
-                        <script>
-                            function _delete() {
-                                var cf = confirm('Bạn có muốn xoá hóa đơn này?');
-                                if (cf) {
-                                    $.ajax({
-                                        url: '/api/HoaDons/' + @item.MaHd,
-                                        type: "Delete",
-                                        contentType: "application/json; charset=utf-8",
-                                        dataType: "json",
-                                        async: true,
-                                        success: function (result) {
-                                            alert("Xoá hóa đơn thành công");
-                                        },
-                                        error: function (errormessage) {
-                                            alert(errormessage.responseText);
-                                        }
-                                    });
-                                }
-                            }
-                        </script>
+                      
                     </td>
                 </tr>
             }

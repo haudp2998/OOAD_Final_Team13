@@ -7,7 +7,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Thông tin khách hàng</h2>
+
 
 <div class="outer-w3-agile mt-3">
     <h4 class="tittle-w3-agileits mb-4">Danh sách khách hàng</h4>
@@ -18,9 +18,7 @@
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
         </button>
     </form>
-    <p>
-        <a asp-action="Create" class="btn btn-primary">Tạo mới</a>
-    </p>
+
     <table class="table">
         <thead>
             <tr>
@@ -74,30 +72,9 @@
                         <a asp-action="ChangeStatus" asp-route-id="@item.MaKh" class="btn-active"> @Html.Raw(item.TrangThaiHd == true ? "<strong>True</strong>" : "False")</a>
                     </td>
                     <td scope="row">
-                        <a asp-action="Edit" asp-route-id="@item.MaKh" class="btn btn-primary">Sửa</a> |
-                        <a asp-action="Details" asp-route-id="@item.MaKh" class="btn btn-primary">Xem chi tiết</a> |
+                        
+                        <a asp-action="Details" asp-route-id="@item.MaKh" class="btn btn-primary">Xem chi tiết</a> 
 
-                        <button type="button" class="btn btn-primary" onclick="return _delete()" id="btnDelete">Xóa</button>
-                        <script>
-                            function _delete() {
-                                var cf = confirm('Bạn có muốn xoá khách hàng này?');
-                                if (cf) {
-                                    $.ajax({
-                                        url: '/api/KhachHangs/' + @item.MaKh,
-                                        type: "Delete",
-                                        contentType: "application/json; charset=utf-8",
-                                        dataType: "json",
-                                        async: true,
-                                        success: function (result) {
-                                            alert("Xoá khách hàng thành công");
-                                        },
-                                        error: function (errormessage) {
-                                            alert(errormessage.responseText);
-                                        }
-                                    });
-                                }
-                            }
-                        </script>
                     </td>
                 </tr>
             }

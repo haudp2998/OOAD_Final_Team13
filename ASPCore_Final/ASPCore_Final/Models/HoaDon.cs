@@ -32,8 +32,9 @@ namespace ASPCore_Final.Models
         public int MaTrangThai { get; set; }
         [Display(Name = "Mã NV")]
         public string MaNv { get; set; }
-
+        [Display(Name = "Email KH")]
         public KhachHang MaKhNavigation { get; set; }
+        [Display(Name = "Tình Trạng")]
         public TrangThai MaTrangThaiNavigation { get; set; }
         public ICollection<ChiTietHd> ChiTietHd { get; set; }
     }

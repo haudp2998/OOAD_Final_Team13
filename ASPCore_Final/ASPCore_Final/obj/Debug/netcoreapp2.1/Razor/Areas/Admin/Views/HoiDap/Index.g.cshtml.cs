@@ -131,7 +131,7 @@ using ReflectionIT.Mvc.Paging;
             WriteLiteral("                            <div class=\"bootstrap-tab-text-grid-left\">\r\n                                ");
             EndContext();
             BeginContext(2136, 104, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "88ae19d52cb94e1ba456d44abb839af3", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "be71a91554564be6966bc362608a553c", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -169,7 +169,7 @@ AddHtmlAttributeValue("", 2159, khachHang.Hinh, 2159, 15, false);
             WriteLiteral("</a></li>\r\n                                    <li>");
             EndContext();
             BeginContext(2510, 143, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d233f1827e9643baa6e83dd6df01d980", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "b042619fff3248ba99f4f95bb4e0dc45", async() => {
                 BeginContext(2580, 69, true);
                 WriteLiteral("<span class=\"glyphicon glyphicon-share\" aria-hidden=\"true\"></span>Xem");
                 EndContext();
@@ -260,7 +260,7 @@ AddHtmlAttributeValue("", 2159, khachHang.Hinh, 2159, 15, false);
             WriteLiteral("                            <div class=\"bootstrap-tab-text-grid-left\">\r\n                                ");
             EndContext();
             BeginContext(3847, 104, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "72aa1076be0c40e7b438b335112df415", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "b32a8e50010a41afa8f664163f3a4e28", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -298,7 +298,7 @@ AddHtmlAttributeValue("", 3870, khachHang.Hinh, 3870, 15, false);
             WriteLiteral("</a></li>\r\n                                    <li>");
             EndContext();
             BeginContext(4219, 120, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "467aec14c735479186f196d60a13e005", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "42b5bba627c442d0aad0144a2e30c1e6", async() => {
                 BeginContext(4265, 70, true);
                 WriteLiteral("<span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span>Xóa");
                 EndContext();

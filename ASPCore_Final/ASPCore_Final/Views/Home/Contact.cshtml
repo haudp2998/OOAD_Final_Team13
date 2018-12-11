@@ -14,30 +14,30 @@
 <!-- //breadcrumbs -->
 <!-- mail -->
 <div class="mail animated wow zoomIn" data-wow-delay=".5s">
-        <h3>Liên hệ</h3>
-        <div class="mail-grids">
-            @if (ViewData["MessContact"] != null)
-            {
-                <div class=" alert alert-info">@ViewData["MessContact"]</div>
-            }
-            <div class="col-md-8 mail-grid-left animated wow slideInLeft" data-wow-delay=".5s">
-                <form asp-action="Contact" asp-controller="Home" method="post">
-                    <textarea name="cauhoi" type="text" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Hãy viết gì đó...';}" required="">Hãy viết gì đó...</textarea>
-                    <input type="submit" value="Gửi">
-                </form>
-            </div>
-            <div class="col-md-4 mail-grid-right animated wow slideInRight" data-wow-delay=".5s">
-                <div class="mail-grid-right1">
-                    <img src="~/images/3.png" alt=" " class="img-responsive" />
-                    <h4>Team 13 <span>Quản lý</span></h4>
-                    <ul class="phone-mail">
-                        <li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>Phone: +1234 567 893</li>
-                        <li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>Email: <a href="mailto:info@example.com">eshopmanager@gmail.com</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="clearfix"> </div>
+    <h3>Liên hệ</h3>
+    <div class="mail-grids">
+        @if (ViewData["MessContact"] != null)
+        {
+            <div class=" alert alert-info">@ViewData["MessContact"]</div>
+        }
+        <div class="col-md-8 mail-grid-left animated wow slideInLeft" data-wow-delay=".5s">
+            <form asp-action="Contact" asp-controller="Home" method="post">
+                <textarea name="cauhoi" type="text" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Hãy viết gì đó...';}" required="">Hãy viết gì đó...</textarea>
+                <input type="submit" value="Gửi">
+            </form>
         </div>
-        <iframe class="animated wow slideInLeft" data-wow-delay=".5s" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3098.76358135888296!2d-77.47669308468912!3d39.04350424592369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b63eb3bc8da92b%3A0x78c8e09ab1cabc90!2sShopping+Plaza%2C+Ashburn%2C+VA+20147%2C+USA!5e0!3m2!1sen!2sin!4v1457602090579" frameborder="0" style="border:0" allowfullscreen></iframe>
+        <div class="col-md-4 mail-grid-right animated wow slideInRight" data-wow-delay=".5s">
+            <div class="mail-grid-right1">
+                <img src="~/images/3.png" alt=" " class="img-responsive" />
+                <h4>Team 13 <span>Quản lý</span></h4>
+                <ul class="phone-mail">
+                    <li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>Phone: +1234 567 893</li>
+                    <li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>Email: <a href="mailto:info@example.com">eshopmanager@gmail.com</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.651110644807!2d106.68001421541548!3d10.761348962412967!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f1b888ab357%3A0xc469f6e800231314!2zMjgwIEFuIETGsMahbmcgVsawxqFuZywgUGjGsOG7nW5nIDQsIFF14bqtbiA1LCBI4buTIENow60gTWluaCwgVmlldG5hbQ!5e0!3m2!1sen!2s!4v1544176706071" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
 </div>
 <!-- //mail -->

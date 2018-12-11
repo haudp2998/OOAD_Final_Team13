@@ -31,9 +31,9 @@ namespace ASPCore_Final.Models
         public string MaNcc { get; set; }
         [Display(Name = "Số lượng tồn")]
         public int? SanPhamKho { get; set; }
-       
+        [Display(Name = "Mã loại")]
         public Loai MaLoaiNavigation { get; set; }
-       
+        [Display(Name = "Mã nhà CC")]
         public NhaCungCap MaNccNavigation { get; set; }
         public ICollection<BinhLuanSp> BinhLuanSp { get; set; }
         public ICollection<ChiTietHd> ChiTietHd { get; set; }

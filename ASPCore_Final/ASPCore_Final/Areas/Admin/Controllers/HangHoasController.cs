@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using ASPCore_Final.Models;
 using ReflectionIT.Mvc.Paging;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace ASPCore_Final.Areas.Admin.Controllers
 {
@@ -73,10 +75,19 @@ namespace ASPCore_Final.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MaHh,TenHh,MaLoai,Hinh,DonGia,GiamGia,MoTa,MaNcc,SoLuongHang")] HangHoa hangHoa)
+        public async Task<IActionResult> Create([Bind("MaHh,TenHh,MaLoai,Hinh,DonGia,GiamGia,MoTa,MaNcc,SoLuongHang")] HangHoa hangHoa, IFormFile fHinh)
         {
             if (ModelState.IsValid)
             {
+                if (fHinh != null)
+                {
+                    string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "HangHoa", fHinh.FileName);
+                    using (var file = new FileStream(path, FileMode.Create))
+                    {
+                        fHinh.CopyTo(file);
+                    }
+                    hangHoa.Hinh = fHinh.FileName;
+                }
                 _context.Add(hangHoa);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -110,13 +121,22 @@ namespace ASPCore_Final.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MaHh,TenHh,MaLoai,Hinh,DonGia,GiamGia,MoTa,MaNcc,SoLuongHang")] HangHoa hangHoa)
+        public async Task<IActionResult> Edit(int id, [Bind("MaHh,TenHh,MaLoai,Hinh,DonGia,GiamGia,MoTa,MaNcc,SoLuongHang")] HangHoa hangHoa, IFormFile fHinh)
         {
           
             if (ModelState.IsValid)
             {
                 try
                 {
+                    if (fHinh != null)
+                    {
+                        string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "HangHoa", fHinh.FileName);
+                        using (var file = new FileStream(path, FileMode.Create))
+                        {
+                            fHinh.CopyTo(file);
+                        }
+                        hangHoa.Hinh = fHinh.FileName;
+                    }
                     _context.Update(hangHoa);
                     await _context.SaveChangesAsync();
                 }

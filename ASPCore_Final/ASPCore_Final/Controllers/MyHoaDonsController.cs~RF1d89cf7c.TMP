@@ -1,0 +1,31 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using ASPCore_Final.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using ReflectionIT.Mvc.Paging;
+
+namespace ASPCore_Final.Controllers
+{
+    public class MyHoaDonsController : Controller
+    {
+        private readonly ESHOPContext db;
+        public MyHoaDonsController(ESHOPContext ctx)
+        {
+            db = ctx;
+        }
+        public async Task<IActionResult> Index(int page = 1, string sortExpression = "MaHd")
+        {
+            var eSHOPContext = db.HoaDon.AsNoTracking().AsQueryable();
+            var model = await PagingList.CreateAsync(eSHOPContext, 5, page, sortExpression, "MaHd");
+            return View(model);
+        }
+
+        public IActionResult XoaCTHD()
+        {
+            return RedirectToAction("Index");
+        }
+    }
+}

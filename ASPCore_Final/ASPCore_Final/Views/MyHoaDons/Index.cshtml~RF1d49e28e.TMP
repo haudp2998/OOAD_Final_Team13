@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_frontEnd.cshtml";
+}
+@section breadcumb{
+    <div class="breadcrumbs">
+        <div class="container">
+            <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+                <li><a asp-action="Index" asp-controller="Home"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Trang chủ</a></li>
+                <li class="active">Hóa đơn của bạn</li>
+            </ol>
+        </div>
+    </div>
+}
+<br />
+<h3 class="alert alert-info" style="font-size:25px;">Thông tin hóa đơn của bạn</h3>
+<div class="row table-bordered" style="position:relative;background-color:gray">
+    <div class="col-md-4"  style="text-align:left;padding:10px;">
+        <span>Mã đơn hàng :<span class="text text-info"> #31241125124</span></span><br />
+        <span>Đặt ngày : @DateTime.Now</span>
+    </div>
+    <div class="col-md-4"  style="text-align:center;padding:10px;">
+        <span>Người nhận :</span><br />
+        <span class="text text-info">Nguyễn Thanh Sang</span>
+    </div>
+    <div class="col-md-4" style="text-align:right;padding:10px;">
+        <span>Tổng tiền :</span><br />
+        <span class="text text-danger">1,300,000 đ</span>
+    </div>
+</div>
+<div class="row table-bordered">
+     <div class="col-md-4">Áo sơ mi trơn</div>
+     <div class="col-md-2">S</div>
+     <div class="col-md-2">3</div>
+     <div class="col-md-2">240,000đ</div>
+     <div class="col-md-2">720,000đ</div>
+</div>
+
+

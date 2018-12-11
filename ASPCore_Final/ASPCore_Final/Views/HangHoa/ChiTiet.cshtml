@@ -263,7 +263,7 @@
                     double giagiam_related = item.DonGia * (1 - item.GiamGia);
                 <div class="col-md-3 new-collections-grid1 animated wow slideInLeft" data-wow-delay=".5s" style="margin-top:0px;">
                     <div class="new-collections-grid1-image">
-                        <a href="single.html" class="product-image"><img src="~/HangHoa/@item.Hinh" alt=" " class="img-responsive"></a>
+                        <a asp-action="ChiTiet" asp-controller="HangHoa" asp-route-mahh="@item.MaHh" class="product-image"><img src="~/HangHoa/@item.Hinh" alt=" " class="img-responsive"></a>
                         <div class="new-collections-grid1-image-pos">
                             <a asp-action="ChiTiet" asp-controller="HangHoa" asp-route-mahh="@item.MaHh">Xem chi tiết</a>
                         </div>

@@ -43,40 +43,46 @@
                 <th scope="col">
                     @Html.DisplayNameFor(model => model.TrangThaiHd)
                 </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.LoaiKH)
+                </th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td scope="row">
-                        @Html.DisplayFor(modelItem => item.TaiKhoan)
-                    </td>
-                    
-                    <td scope="row">
-                        @Html.DisplayFor(modelItem => item.HoTen)
-                    </td>
-                 
-                    <td scope="row">
-                        @Html.DisplayFor(modelItem => item.DiaChi)
-                    </td>
-                    <td scope="row">
-                        @Html.DisplayFor(modelItem => item.DienThoai)
-                    </td>
-                    <td scope="row">
-                        @Html.DisplayFor(modelItem => item.Email)
-                    </td>
-                   
-                    <td scope="row">
-                        <a asp-action="ChangeStatus" asp-route-id="@item.MaKh" class="btn-active"> @Html.Raw(item.TrangThaiHd == true ? "<strong>True</strong>" : "False")</a>
-                    </td>
-                    <td scope="row">
-                        
-                        <a asp-action="Details" asp-route-id="@item.MaKh" class="btn btn-primary">Xem chi tiết</a> 
+            <tr>
+                <td scope="row">
+                    @Html.DisplayFor(modelItem => item.TaiKhoan)
+                </td>
 
-                    </td>
-                </tr>
+                <td scope="row">
+                    @Html.DisplayFor(modelItem => item.HoTen)
+                </td>
+
+                <td scope="row">
+                    @Html.DisplayFor(modelItem => item.DiaChi)
+                </td>
+                <td scope="row">
+                    @Html.DisplayFor(modelItem => item.DienThoai)
+                </td>
+                <td scope="row">
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td scope="row">
+                    @Html.Raw(item.LoaiKH == true ? "<strong>KH thân thiết</strong>" : "KH thường")
+                </td>
+
+                <td scope="row">
+                    <a asp-action="ChangeStatus" asp-route-id="@item.MaKh" class="btn-active"> @Html.Raw(item.TrangThaiHd == true ? "<strong>True</strong>" : "False")</a>
+                </td>
+                <td scope="row">
+
+                    <a asp-action="Details" asp-route-id="@item.MaKh" class="btn btn-primary">Xem chi tiết</a>
+
+                </td>
+            </tr>
             }
         </tbody>
     </table>

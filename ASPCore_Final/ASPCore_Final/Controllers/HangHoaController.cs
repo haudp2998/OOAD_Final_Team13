@@ -14,13 +14,23 @@ namespace ASPCore_Final.Controllers
         {
             db = ctx;
         }
-        public IActionResult Index(string loai, int page = 1, int pageSize = 6)
+
+        public IActionResult Index(int page = 1, int pageSize = 6)
+        {
+            int starIndex = (page - 1) * pageSize;
+            List<HangHoa> hangHoas = db.HangHoa.Skip(starIndex).ToList();
+            int itemsize = hangHoas.Count < pageSize ? hangHoas.Count : pageSize;
+            List<HangHoa> res = hangHoas.Take(itemsize).ToList();
+            return View("Index",res);
+        }
+
+        public IActionResult Index1(string loai="", int page = 1, int pageSize = 6)
         {
             int starIndex = (page - 1) * pageSize;
             List<HangHoa> hangHoas = db.HangHoa.Where(p => p.MaLoai == loai).Skip(starIndex).ToList();
             int itemsize = hangHoas.Count < pageSize ? hangHoas.Count : pageSize;
             List<HangHoa> res = hangHoas.Take(itemsize).ToList();
-            return View(res);
+            return View("Index",res);
         }
 
         public IActionResult ChiTiet(int mahh)

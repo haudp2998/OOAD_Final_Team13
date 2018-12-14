@@ -57,7 +57,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="form-body-w3-agile text-center w-lg-50 w-sm-50 w-50 mx-auto mt-5">
                 
                 <form method="post" asp-controller="admin/Login" asp-action="Login">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="form-group">
                         <label asp-for="Email" class="control-label"></label>
                         <input asp-for="Email" class="form-control" autofocus="autofocus" />
@@ -72,13 +72,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <input type="submit" value="Login" class="btn btn-primary error-w3l-btn mt-sm-5 mt-3 px-4" />
                     </div>
                 </form>
-                    <p class="paragraph-agileits-w3layouts mt-4">
+                    @*<p class="paragraph-agileits-w3layouts mt-4">
                         Don't have an account
                         <a href="register.html">Create an account</a>
                     </p>
                     <h1 class="paragraph-agileits-w3layouts mt-2">
                         <a href="index.html">Back to Home</a>
-                    </h1>
+                    </h1>*@
 
 
             </div>

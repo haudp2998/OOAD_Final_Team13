@@ -89,6 +89,11 @@ namespace ASPCore_Final.Areas.Admin.Controllers
                     tongtien += ct.ThanhTien;
                     content = content + "<tr><td>" + hangHoa.TenHh + "</td><td>" + item.KichCo + "</td><td>" + item.SoLuong + "</td><td>" + ct.GiaBan.ToString("#,##0") +"</td><td>" + ct.ThanhTien.ToString("#,##0") + "</td></tr>";
                 }
+                if(tongtien >= 100000)
+                {
+                    kh.LoaiKH = true;
+                }
+                _context.SaveChanges();
                 content = content + "<tr><td colspan='4'>Tông thanh toán : </td><td>" + tongtien.ToString("#,##0") + "</td></tr></table><br />";
                 content = content + "<div>Đơn hàng của bạn sẽ được chuyển đến trong vài ngày tới . Cảm ơn bạn đã ủng hộ ESHOP. Thân</div>";
                 mm.Body = string.Format(content, kh.HoTen);

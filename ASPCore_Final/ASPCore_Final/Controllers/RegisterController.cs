@@ -89,6 +89,7 @@ namespace ASPCore_Final.Controllers
                 }
                 khachHang.MatKhau = Encryptor.MD5Hash(khachHang.MatKhau);
                 khachHang.TrangThaiHd = false;
+                khachHang.LoaiKH = false;
                 _context.Add(khachHang);
                 _context.SaveChanges();
                 MailMessage mm = new MailMessage("eshoppingmanager@gmail.com", khachHang.Email);

@@ -61,34 +61,40 @@
                     </td>
                     <td scope="row">
                         <a asp-action="Edit" asp-route-id="@item.MaNcc" class="btn btn-primary">Sửa</a> |
-                        <a asp-action="Details" asp-route-id="@item.MaNcc" class="btn btn-primary">Xem chi tiết</a> |
+                        <a asp-action="Details" asp-route-id="@item.MaNcc" class="btn btn-primary">Xem chi tiết</a>
 
-                        <button type="button" class="btn btn-primary" onclick="return _delete()" id="btnDelete">Xóa</button>
-                        <script>
-                            function _delete() {
-                                var cf = confirm('Bạn có muốn xoá nhà cung cấp này?');
-                                if (cf) {
-                                    $.ajax({
-                                        url: '/api/NhaCungCaps/' + @item.MaNcc,
-                                        type: "Delete",
-                                        contentType: "application/json; charset=utf-8",
-                                        dataType: "json",
-                                        async: true,
-                                        success: function (result) {
-                                            alert("Xoá nhà cung cấp thành công");
-                                        },
-                                        error: function (errormessage) {
-                                            alert(errormessage.responseText);
-                                        }
-                                    });
-                                }
-                            }
-                        </script>
+                        @*<button type="button" class="btn btn-primary btn-delete">Xóa</button>*@
+                        
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+    <script>
+        function _delete(id, ev) {
+            if (ev.target.className == 'btn btn-primary btn-delete') {
+                console.log(ev.target);
+                console.log(ev.currentTarget);
+                var cf = confirm('Bạn có muốn xoá nhà cung cấp ID: ' + id + '?');
+                if (cf) {
+                    $(ev.currentTarget).fadeOut();
+                    $.ajax({
+                        url: '/api/NhaCungCaps/' + id,
+                        type: "Delete",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        async: true,
+                        success: function (result) {
+                            alert("Xoá nhân viên thành công");
+                        },
+                        error: function (errormessage) {
+                            alert(errormessage.responseText);
+                        }
+                    });
+                }
+            }
+        }
+    </script>
     <nav class="navbar-default justify-content-center">
 
 

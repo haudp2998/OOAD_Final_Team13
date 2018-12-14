@@ -37,7 +37,7 @@
                     @foreach (var item in listNam)
                     {
                         int soluong = db.HangHoa.Where(p => p.MaLoai == item.MaLoai).ToList().Count();
-                        <li><a asp-action="Index" asp-controller="HangHoa" asp-route-loai="@item.MaLoai">@item.TenLoai</a> <span>(@soluong)</span></li>
+                        <li><a asp-action="Index1" asp-controller="HangHoa" asp-route-loai="@item.MaLoai">@item.TenLoai</a> <span>(@soluong)</span></li>
                     }
                 </ul>
                 <li><a href="products.html">Thời trang nữ</a> <span>(@soluongSPNu)</span></li>
@@ -45,7 +45,7 @@
                     @foreach (var item in listNu)
                     {
                         int soluong = db.HangHoa.Where(p => p.MaLoai == item.MaLoai).ToList().Count();
-                        <li><a asp-action="Index" asp-controller="HangHoa" asp-route-loai="@item.MaLoai">@item.TenLoai</a> <span>(@soluong)</span></li>
+                        <li><a asp-action="Index1" asp-controller="HangHoa" asp-route-loai="@item.MaLoai">@item.TenLoai</a> <span>(@soluong)</span></li>
                     }
                 </ul>
             </ul>

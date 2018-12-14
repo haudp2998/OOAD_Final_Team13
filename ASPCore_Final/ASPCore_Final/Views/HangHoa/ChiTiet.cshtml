@@ -149,7 +149,7 @@
                         <ul class="social-icons">
                             @{ 
                                 string link = "http://www.facebook.com/share.php?u=eshop.com/";
-                                link += "HangHoa/ChiTiet?mahh=7";
+                                link += "HangHoa/ChiTiet?mahh=" + Model.MaHh;
                             }
                             <li><a style='padding: 0 5px' target='_blank' href="@link" title='Chia sẽ lên Facebook' class="facebook"></a></li>
                         </ul>
@@ -291,7 +291,6 @@
                     <h4><a asp-action="ChiTiet" asp-controller="HangHoa" asp-route-mahh="@item.MaHh">@item.TenHh</a></h4>
                     <div class="new-collections-grid1-left simpleCart_shelfItem">
                         <p><i>@item.DonGia.ToString("#,##0") đ</i> <span class="item_price">@giagiam_related.ToString("#,##0") đ</span></p>
-                        <p style="text-align:center"><a class="item_add" href="#">Thêm vào giỏ</a></p>
                     </div>
                 </div>
                 }

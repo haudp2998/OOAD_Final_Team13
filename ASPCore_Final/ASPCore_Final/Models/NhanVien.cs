@@ -23,6 +23,7 @@ namespace ASPCore_Final.Models
         [Display(Name = "Trạng thái")]
         public bool? TrangThaiHd { get; set; }
 
+        [Display(Name = "Phân quyền")]
         public PhanQuyen MaPqNavigation { get; set; }
         public ICollection<HoiDap> HoiDap { get; set; }
     }

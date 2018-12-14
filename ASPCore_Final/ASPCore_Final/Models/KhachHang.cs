@@ -35,6 +35,8 @@ namespace ASPCore_Final.Models
         public string Hinh { get; set; }
         [Display(Name = "Trạng thái")]
         public bool TrangThaiHd { get; set; }
+        [Display(Name = "Loại KH")]
+        public bool LoaiKH { get; set; }
 
         public ICollection<BinhLuanSp> BinhLuanSp { get; set; }
         public ICollection<HoaDon> HoaDon { get; set; }

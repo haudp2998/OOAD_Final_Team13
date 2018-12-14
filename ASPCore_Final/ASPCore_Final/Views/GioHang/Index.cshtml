@@ -27,14 +27,15 @@
         {
             <h3 class="animated wow slideInLeft" data-wow-delay=".5s">Giỏ hàng chứa : <span>@Model.Count()</span> mặt hàng</h3>
             <div class="checkout-right animated wow slideInUp" data-wow-delay=".5s">
-                <table class="timetable_sub">
+                <table class="timetable_sub" align="center">
                     <thead>
                         <tr>
                             <th>Mã hàng hóa</th>
                             <th>Sản phẩm</th>
                             <th>Kích cỡ</th>
-                            <th colspan="2">Số lượng</th>
+
                             <th>Tên sản phẩm</th>
+                            <th align="center">Số lượng</th>
                             <th>Giá bán</th>
                             <th>Xóa</th>
                         </tr>
@@ -48,21 +49,22 @@
                             <td class="invert" width="70px;">@i</td>
                             <td class="invert-image" width="150px;"><a asp-action="ChiTiet" asp-controller="HangHoa" asp-route-mahh="@item.MaHh"><img src="~/HangHoa/@item.Hinh" alt=" " class="img-responsive" /></a></td>
                             <td class="invert" width="50px;">@item.KichCo</td>
-                            <form asp-action="CapNhatSL" asp-controller="GioHang" method="post">
-                                <input type="hidden" name="mahh" value="@item.MaHh" />
-                                <input type="hidden" name="kichco" value="@item.KichCo" />
-                                <td class="invert">
-                                    <div class="quantity-select">
-                                        <input class="entry value" type="text" name="soluongmoi" value="@item.SoLuong" min="1" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <button name="btnCapNhatSL" type="submit" class="btn btn-primary">Cập nhật</button>
-                                    </div>
-                                </td>
-                            </form>
+
                             <td class="invert">@item.TenHh</td>
+                            <form asp-action="CapNhatSL" asp-controller="GioHang" id="formSoluong_@i" method="get">
+
+                                <input type="hidden" id="mahh" name="mahh" value="@item.MaHh" />
+                                <input type="hidden" id="kichco" name="kichco" value="@item.KichCo" />
+                                <td class="invert" width="150px;" align="center" valign="middle">
+                                    <div class="quantity-select">
+                                        <input class="entry value" style="height:35px;" type="number" min="1" step="1" id="soluongmoi" name="soluongmoi" value="@item.SoLuong" onchange="_UpdateSL(@item.MaHh,event);" />
+                                    </div>
+                                </td>
+
+                            </form>
+                            @{
+                                i++;
+                            }
                             <td class="invert">@item.GiaBan.ToString("#,##0") đ</td>
                             <td class="invert">
                                 <div class="rem">
@@ -72,6 +74,30 @@
                         </tr>
                     }
                 </table>
+                <script>
+                    function _UpdateSL(mahh,ev) {
+                        if (ev.target.className == 'entry value') {
+                          
+                            var soluongmoi = $("#soluongmoi").val();
+                            var kichco = $("#kichco").val();
+                            console.log(kichco);
+                            $(ev.currentTarget).fadeOut();
+                            $.ajax({
+                                url: "/GioHang/CapNhatSL",
+                                type: "GET",
+                                contentType: "application/json; charset=utf-8",
+                                
+                                data: { "mahh": mahh, "kichco": kichco, "soluongmoi": soluongmoi },
+                                async: true,
+                                success: function (data) {
+                                     window.location = '/GioHang';
+                                }
+
+                            });
+                        }
+                    }
+
+                </script>
             </div>
             <div class="checkout-left">
                 <div class="checkout-left-basket animated wow slideInLeft" data-wow-delay=".5s">

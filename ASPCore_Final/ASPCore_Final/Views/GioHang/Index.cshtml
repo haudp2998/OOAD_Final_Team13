@@ -45,56 +45,74 @@
                     }
                     @foreach (var item in Model)
                     {
-                        <tr class="rem1">
-                            <td class="invert" width="70px;">@i</td>
-                            <td class="invert-image" width="150px;"><a asp-action="ChiTiet" asp-controller="HangHoa" asp-route-mahh="@item.MaHh"><img src="~/HangHoa/@item.Hinh" alt=" " class="img-responsive" /></a></td>
-                            <td class="invert" width="50px;">@item.KichCo</td>
+                    <tr class="rem1 row-item">
+                        <td class="invert" width="70px;">@i</td>
+                        <td class="invert-image" width="150px;"><a asp-action="ChiTiet" asp-controller="HangHoa" asp-route-mahh="@item.MaHh"><img src="~/HangHoa/@item.Hinh" alt=" " class="img-responsive" /></a></td>
+                        <td class="invert" width="50px;">@item.KichCo</td>
 
-                            <td class="invert">@item.TenHh</td>
-                            <form asp-action="CapNhatSL" asp-controller="GioHang" id="formSoluong_@i" method="get">
-
-                                <input type="hidden" id="mahh" name="mahh" value="@item.MaHh" />
-                                <input type="hidden" id="kichco" name="kichco" value="@item.KichCo" />
-                                <td class="invert" width="150px;" align="center" valign="middle">
-                                    <div class="quantity-select">
-                                        <input class="entry value" style="height:35px;" type="number" min="1" step="1" id="soluongmoi" name="soluongmoi" value="@item.SoLuong" onchange="_UpdateSL(@item.MaHh,event);" />
-                                    </div>
-                                </td>
-
-                            </form>
-                            @{
-                                i++;
-                            }
-                            <td class="invert">@item.GiaBan.ToString("#,##0") đ</td>
-                            <td class="invert">
-                                <div class="rem">
-                                    <div><a asp-action="XoaCartItem" asp-controller="GioHang" asp-route-cartitem="@item.MaHh" class="close1"></a></div>
-                                </div>
-                            </td>
-                        </tr>
+                        <td class="invert">@item.TenHh</td>
+                        @*<form asp-action="CapNhatSL" asp-controller="GioHang" id="formSoluong_@i" method="get"></form>*@
+                        <td class="invert" width="150px;" align="center" valign="middle">
+                            <div class="quantity-select">
+                                <input type="hidden" name="mahh" value="@item.MaHh" />
+                                <input type="hidden" name="kichco" value="@item.KichCo" />
+                                <input class="entry value" style="height:35px;" type="number" min="1" step="1" name="soluongmoi" value="@item.SoLuong" />
+                            </div>
+                        </td>
+                        @{
+                            i++;
+                        }
+                        <td class="invert">@item.GiaBan.ToString("#,##0") đ</td>
+                        <td class="invert">
+                            <div class="rem">
+                                <div><a asp-action="XoaCartItem" asp-controller="GioHang" asp-route-cartitemhh="@item.MaHh" asp-route-cartitemkichco="@item.KichCo" class="close1"></a></div>
+                            </div>
+                        </td>
+                    </tr>
                     }
                 </table>
                 <script>
-                    function _UpdateSL(mahh,ev) {
-                        if (ev.target.className == 'entry value') {
-                          
-                            var soluongmoi = $("#soluongmoi").val();
-                            var kichco = $("#kichco").val();
-                            console.log(kichco);
-                            $(ev.currentTarget).fadeOut();
-                            $.ajax({
-                                url: "/GioHang/CapNhatSL",
-                                type: "GET",
-                                contentType: "application/json; charset=utf-8",
-                                
-                                data: { "mahh": mahh, "kichco": kichco, "soluongmoi": soluongmoi },
-                                async: true,
-                                success: function (data) {
-                                     window.location = '/GioHang';
-                                }
+                    $(function () {
+                        $("input[type='number']").change(function () {
+                            var currentSoLuongMoi = $(this);
+                            var currentMaHH = $(currentSoLuongMoi.siblings("input[name='mahh']")[0]);
+                            var currentKichCo = $(currentSoLuongMoi.siblings("input[name='kichco']")[0]);
+                            var mahh = currentMaHH.val();
+                            var kichco = currentKichCo.val();
+                            var soluongmoi = currentSoLuongMoi.val();
+                            UpdateSL(mahh, kichco, soluongmoi);
+                        });
+                    });
 
-                            });
-                        }
+                    function UpdateSL(mahh, kichco, soluongmoi) {
+                        //console.log(mahh);
+                        //console.log(soluongmoi);
+                        //console.log(kichco);
+                        $.ajax({
+                            url: "/GioHang/CapNhatSL",
+                            type: "GET",
+                            contentType: "application/json; charset=utf-8",
+
+                            data: { "mahh": mahh, "kichco": kichco, "soluongmoi": soluongmoi },
+                            async: true,
+                            success: function (data) {
+                                //console.log('success');
+                                //console.log(data);
+                                $("ul.dschitiet").html('');
+                                var tongtien = 0;
+                                var soluong = 0;
+                                for (var i = 0; i < data.length; i++) {
+                                    var currentItem = data[i];
+                                    tongtien += currentItem['giaBan'] * currentItem['soLuong'];
+                                    soluong += currentItem['soLuong'];
+                                    $("ul.dschitiet").append("<li>" + currentItem['tenHh'] + "<i>-</i><span>" + currentItem['soLuong'] + "<i>x</i>" + currentItem['giaBan'].toLocaleString()+" đ</span></li>");
+                                }
+                                $("ul.dschitiet").append('<li style="color:seagreen;border-top:groove;font-size:20px;">TỔNG THANH TOÁN <i>-</i><span>' + tongtien.toLocaleString() + ' đ</span></li>');
+                                $("div.total span.tong").html(tongtien.toLocaleString() + ' đ');
+                                $("div.total span.soluong").html(soluong.toLocaleString());
+                            }
+
+                        });
                     }
 
                 </script>
@@ -105,7 +123,7 @@
                     @{
                         double tongtien = 0;
                     }
-                    <ul>
+                    <ul class="dschitiet">
                         @foreach (var item in Model)
                         {
                             <li>@item.TenHh<i>-</i><span>@item.SoLuong<i>x</i>@item.GiaBan.ToString("#,##0") đ</span></li>

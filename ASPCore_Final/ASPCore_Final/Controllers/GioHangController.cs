@@ -64,24 +64,24 @@ namespace ASPCore_Final.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult XoaCartItem(int cartitem)
+        public IActionResult XoaCartItem(int cartitemhh, string cartitemkichco)
         {
             List<CartItem> giohang = Carts;
             // lấy hang hóa muốn xóa
-            CartItem hh = giohang.SingleOrDefault(p => p.MaHh == cartitem);
+            CartItem hh = giohang.SingleOrDefault(p => p.MaHh == cartitemhh && p.KichCo == cartitemkichco);
             giohang.Remove(hh);
             HttpContext.Session.Set("GioHang", giohang);
             return RedirectToAction("Index");
         }
 
       
-        public IActionResult CapNhatSL(int mahh, string kichco, int soluongmoi)
+        public List<CartItem> CapNhatSL(int mahh, string kichco, int soluongmoi)
         {
             List<CartItem> giohang = Carts;
             CartItem hh = giohang.SingleOrDefault(p => p.MaHh == mahh && p.KichCo == kichco);
             hh.SoLuong = soluongmoi;
             HttpContext.Session.Set("GioHang", giohang);
-            return RedirectToAction("Index");
+            return giohang;
         }
 
         public IActionResult TaoHoaDon(int makh,string hotenkh,string diachi,string hoten_ngnhan,string dc_nguoinhan,string ghichu,string sdt)

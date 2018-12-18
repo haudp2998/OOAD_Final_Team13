@@ -1,0 +1,43 @@
+﻿@model ReflectionIT.Mvc.Paging.PagingList<ASPCore_Final.Models.PhieuNhapHang>
+@using ReflectionIT.Mvc.Paging;
+@addTagHelper *, ReflectionIT.Mvc.Paging
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div><a asp-action="ThemMoi"><span class="glyphicon glyphicon-plus"></span> Thêm mới</a></div>
+<br />
+<div>
+    @if (Model != null)
+    {
+        <table class="table table-bordered">
+            <tr style="background-color:lightblue;color:white;">
+                <th>STT</th>
+                <th>Mã phiếu nhập</th>
+                <th>Ngày nhập</th>
+                <th>Tổng tiền</th>
+                <th>Xem chi tiết</th>
+            </tr>
+            @{
+                var STT = 1;
+            }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <form asp-action="LayThongTin" method="post">
+                        <td>@STT</td>
+                        <td>@item.MaPn</td>
+                        <td><input type="datetime" name="ngaynhap" id="ngaynhap" value="@item.NgayNhap.ToString("dd/MM/yyyy hh:mm")" class="form-control" /></td>
+                        <td><label>@Convert.ToDouble(item.TongTien).ToString("#,##0")</label></td>
+                        <td><a asp-action="ChitietPhieuHang" asp-route-mapn="@item.MaPn">Xem chi tiết</a></td>
+                    </form>
+                </tr>
+                STT = STT + 1;
+            }
+        </table>
+        <nav class="navbar-default justify-content-center">
+            @await this.Component.InvokeAsync("Pager", new { pagingList = this.Model, @searchString = @ViewBag.SearchString, @class = "page-item" })
+        </nav>
+    }
+</div>
+

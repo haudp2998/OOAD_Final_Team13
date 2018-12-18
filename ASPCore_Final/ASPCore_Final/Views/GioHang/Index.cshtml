@@ -51,14 +51,18 @@
                         <td class="invert" width="50px;">@item.KichCo</td>
 
                         <td class="invert">@item.TenHh</td>
-                        @*<form asp-action="CapNhatSL" asp-controller="GioHang" id="formSoluong_@i" method="get"></form>*@
+                        @*<form asp-action="CapNhatSL" asp-controller="GioHang" id="formSoluong_@i" method="get">*@
+                      
+                            
                         <td class="invert" width="150px;" align="center" valign="middle">
                             <div class="quantity-select">
-                                <input type="hidden" name="mahh" value="@item.MaHh" />
-                                <input type="hidden" name="kichco" value="@item.KichCo" />
-                                <input class="entry value" style="height:35px;" type="number" min="1" step="1" name="soluongmoi" value="@item.SoLuong" />
+                                <input type="hidden" id="mahh" name="mahh" value="@item.MaHh" />
+                                <input type="hidden" id="kichco" name="kichco" value="@item.KichCo" />
+                                <input class="entry value" style="height:35px;" type="number" min="1" step="1" id="soluongmoi" name="soluongmoi" value="@item.SoLuong"  />
                             </div>
                         </td>
+
+                        @*</form>*@
                         @{
                             i++;
                         }
@@ -72,6 +76,7 @@
                     }
                 </table>
                 <script>
+                   
                     $(function () {
                         $("input[type='number']").change(function () {
                             var currentSoLuongMoi = $(this);
@@ -105,7 +110,7 @@
                                     var currentItem = data[i];
                                     tongtien += currentItem['giaBan'] * currentItem['soLuong'];
                                     soluong += currentItem['soLuong'];
-                                    $("ul.dschitiet").append("<li>" + currentItem['tenHh'] + "<i>-</i><span>" + currentItem['soLuong'] + "<i>x</i>" + currentItem['giaBan'].toLocaleString()+" đ</span></li>");
+                                    $("ul.dschitiet").append("<li>" + currentItem['tenHh'] + "<i>-</i><span>" + currentItem['soLuong'] + "<i>x</i>" + currentItem['giaBan'].toLocaleString() + " đ</span></li>");
                                 }
                                 $("ul.dschitiet").append('<li style="color:seagreen;border-top:groove;font-size:20px;">TỔNG THANH TOÁN <i>-</i><span>' + tongtien.toLocaleString() + ' đ</span></li>');
                                 $("div.total span.tong").html(tongtien.toLocaleString() + ' đ');
@@ -114,6 +119,7 @@
 
                         });
                     }
+            
 
                 </script>
             </div>
@@ -126,6 +132,7 @@
                     <ul class="dschitiet">
                         @foreach (var item in Model)
                         {
+                           
                             <li>@item.TenHh<i>-</i><span>@item.SoLuong<i>x</i>@item.GiaBan.ToString("#,##0") đ</span></li>
                             tongtien = tongtien + item.ThanhTien;
                         }

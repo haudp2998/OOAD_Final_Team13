@@ -53,7 +53,7 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
+                <tr onclick="_delete(@item.MaHh, event)">
                     <td>
                         @Html.DisplayFor(modelItem => item.TenHh)
                     </td>
@@ -77,13 +77,39 @@
                     </td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.MaHh" class="btn btn-primary">Sửa</a> |
-                        <a asp-action="Details" asp-route-id="@item.MaHh" class="btn btn-primary">Xem chi tiết</a> 
-
+                        <a asp-action="Details" asp-route-id="@item.MaHh" class="btn btn-primary">Xem chi tiết</a>
+                        <button type="button" class="btn btn-primary btn-delete">Xóa</button>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+    <script>
+        function _delete(id, ev) {
+            if (ev.target.className == 'btn btn-primary btn-delete') {
+                console.log(ev.target);
+                console.log(ev.currentTarget);
+                var cf = confirm('Bạn có muốn xoá hàng hoá ID: ' + id + '?');
+                if (cf) {
+                    $(ev.currentTarget).fadeOut();
+                    $.ajax({
+                        url: '/api/HangHoas/' + id,
+                        type: "Delete",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        async: true,
+                        success: function (result) {
+                            alert("Xoá hàng hoá thành công");
+                        },
+                        error: function (errormessage) {
+                            alert(errormessage.responseText);
+                        }
+                    });
+                }
+            }
+        }
+    </script>
+
     <nav class="navbar-default justify-content-center">
 
 

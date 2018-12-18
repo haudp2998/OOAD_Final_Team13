@@ -75,11 +75,11 @@ namespace ASPCore_Final.Controllers
         }
 
       
-        public List<CartItem> CapNhatSL(int mahh, string kichco, int soluongmoi)
+        public List<CartItem> CapNhatSL(string mahh, string kichco, string soluongmoi)
         {
             List<CartItem> giohang = Carts;
-            CartItem hh = giohang.SingleOrDefault(p => p.MaHh == mahh && p.KichCo == kichco);
-            hh.SoLuong = soluongmoi;
+            CartItem hh = giohang.SingleOrDefault(p => p.MaHh == Int32.Parse(mahh) && p.KichCo == kichco);
+            hh.SoLuong = Int32.Parse(soluongmoi);
             HttpContext.Session.Set("GioHang", giohang);
             return giohang;
         }

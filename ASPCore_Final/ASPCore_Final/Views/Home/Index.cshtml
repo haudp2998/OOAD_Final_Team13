@@ -3,134 +3,133 @@
 }
 
 
-    <div class="banner" style="background: url(/images/banner.jpg) no-repeat 0px 0px;">
-        <div class="container">
-            <div class="banner-info animated wow zoomIn" data-wow-delay=".5s">
-                <h3>ESHOP</h3>
-                <h4 style="margin:auto">Fashionista</h4>
-            </div>
+<div class="banner" style="background: url(/images/banner.jpg) no-repeat 0px 0px;">
+    <div class="container">
+        <div class="banner-info animated wow zoomIn" data-wow-delay=".5s">
+            <h3>ESHOP</h3>
+            <h4 style="margin:auto">Fashionista</h4>
         </div>
     </div>
-    @{
-        ESHOPContext db = new ESHOPContext();
-        List<HangHoa> hhs = db.HangHoa.ToList();
-        List<HangHoa> hhnb = new List<HangHoa>();
-        int demhhnb = 0;
-        foreach (var item in hhs)
+</div>
+@{
+    ESHOPContext db = new ESHOPContext();
+    List<HangHoa> hhs = db.HangHoa.ToList();
+    List<HangHoa> hhnb = new List<HangHoa>();
+    int demhhnb = 0;
+    foreach (var item in hhs)
+    {
+        List<BinhLuanSp> bls = db.BinhLuanSp.Where(p => p.MaHh == item.MaHh).ToList();
+        if (bls.Count > 0 && demhhnb < 8)
         {
-            List<BinhLuanSp> bls = db.BinhLuanSp.Where(p => p.MaHh == item.MaHh).ToList();
-            if (bls.Count > 0 && demhhnb < 8)
+            ++demhhnb;
+            hhnb.Add(item);
+        }
+    }
+    if (demhhnb < 8)
+    {
+        Random rnd = new Random();
+        List<HangHoa> hhs_random = hhs.OrderBy(x => rnd.Next()).ToList();
+
+        foreach (var hh in hhs_random)
+        {
+            if (!hhnb.Contains(hh) && demhhnb < 8)
             {
                 ++demhhnb;
-                hhnb.Add(item);
-            }
-        }
-        if (demhhnb < 8)
-        {
-            Random rnd = new Random();
-            List<HangHoa> hhs_random = hhs.OrderBy(x => rnd.Next()).ToList();
-
-            foreach (var hh in hhs_random)
-            {
-                if(!hhnb.Contains(hh) && demhhnb < 8)
-                {
-                    ++demhhnb;
-                    hhnb.Add(hh);
-                }
+                hhnb.Add(hh);
             }
         }
     }
-    <div class="new-collections">
-        <div class="container">
-            <h3 class="animated wow zoomIn" data-wow-delay=".5s">Sản phẩm nổi bật</h3>
-            <div class="new-collections-grids">
+}
+<div class="new-collections">
+    <div class="container">
+        <h3 class="animated wow zoomIn" data-wow-delay=".5s">Sản phẩm nổi bật</h3>
+        <div class="new-collections-grids">
 
-                @foreach (var item in hhnb)
-                {
-                    <div class="col-md-3 new-collections-grid">
-                        <div class="new-collections-grid1 new-collections-grid1-image-width animated wow slideInUp" data-wow-delay=".5s">
-                            <div class="new-collections-grid1-image">
-                                <a asp-action="ChiTiet" asp-controller="HangHoa" asp-route-mahh="@item.MaHh" class="product-image"><img src="~/HangHoa/@item.Hinh" alt=" " class="img-responsive" /></a>
-                                <div class="new-collections-grid1-image-pos new-collections-grid1-image-pos1">
-                                    <a asp-action="ChiTiet" asp-controller="HangHoa" asp-route-mahh="@item.MaHh">Xem chi tiết</a>
-                                </div>
-                                @{
-                                    List<SanPhamKho> sanPhamKhos = db.SanPhamKho.Where(p => p.MaHh == item.MaHh).ToList();
-                                    var soluong = sanPhamKhos.Sum(x => x.SoLuong);
-                                    if (soluong > 10)
-                                    {
-                                        double gg = item.GiamGia * 100;
-                                        <div class="new-one">
-                                            <p>-@gg%</p>
-                                        </div>
-                                    }
-                                    else if (soluong > 0)
-                                    {
-                                        <div class="new-one">
-                                            <p>Sắp hết hàng</p>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="new-one">
-                                            <p>Tạm hết hàng</p>
-                                        </div>
-                                    }
+            @foreach (var item in hhnb)
+            {
+                <div class="col-md-3 new-collections-grid">
+                    <div class="new-collections-grid1 new-collections-grid1-image-width animated wow slideInUp" data-wow-delay=".5s">
+                        <div class="new-collections-grid1-image">
+                            <a asp-action="ChiTiet" asp-controller="HangHoa" asp-route-mahh="@item.MaHh" class="product-image"><img src="~/HangHoa/@item.Hinh" alt=" " class="img-responsive" /></a>
+                            <div class="new-collections-grid1-image-pos new-collections-grid1-image-pos1">
+                                <a asp-action="ChiTiet" asp-controller="HangHoa" asp-route-mahh="@item.MaHh">Xem chi tiết</a>
+                            </div>
+                            @{
+                                List<SanPhamKho> sanPhamKhos = db.SanPhamKho.Where(p => p.MaHh == item.MaHh).ToList();
+                                var soluong = sanPhamKhos.Sum(x => x.SoLuong);
+                                if (soluong > 10)
+                                {
+                                    double gg = item.GiamGia * 100;
+                                    <div class="new-one">
+                                        <p>-@gg%</p>
+                                    </div>
                                 }
-                                <div class="new-collections-grid1-right new-collections-grid1-right-rate">
-                                    <div class="rating">
-                                        @{
-                                            List<YeuThich> yts = db.YeuThich.Where(p => p.MaHh == item.MaHh).ToList();
-                                            double diemyt = 0;
-                                            if (yts.Count > 0)
+                                else if (soluong > 0)
+                                {
+                                    <div class="new-one">
+                                        <p>Sắp hết hàng</p>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="new-one">
+                                        <p>Tạm hết hàng</p>
+                                    </div>
+                                }
+                            }
+                            <div class="new-collections-grid1-right new-collections-grid1-right-rate">
+                                <div class="rating">
+                                    @{
+                                        List<YeuThich> yts = db.YeuThich.Where(p => p.MaHh == item.MaHh).ToList();
+                                        double diemyt = 0;
+                                        if (yts.Count > 0)
+                                        {
+                                            double tongdiem = 0;
+                                            foreach (var y in yts)
                                             {
-                                                double tongdiem = 0;
-                                                foreach (var y in yts)
-                                                {
-                                                    tongdiem = tongdiem + y.DiemDanhGia;
-                                                }
-                                                diemyt = tongdiem / yts.Count();
-                                                int diem = int.Parse(diemyt.ToString().Split(".")[0]);
-                                                if (diem < 3)
-                                                {
-                                                    diem = 3;
-                                                }
-                                                for (int i = 1; i <= 5; i++)
-                                                {
-                                                    if (i <= diem)
-                                                    {
-                                                        <img src="~/images/2.png" style="opacity:1">
-                                                    }
-                                                    else if (i > diem)
-                                                    {
-                                                        <img src="~/images/1.png" style="opacity:1">
-                                                    }
-                                                }
+                                                tongdiem = tongdiem + y.DiemDanhGia;
                                             }
-                                            else
+                                            diemyt = tongdiem / yts.Count();
+                                            int diem = int.Parse(diemyt.ToString().Split(".")[0]);
+                                            if (diem < 3)
                                             {
-                                                @for (int i = 1; i <= 5; i++)
+                                                diem = 3;
+                                            }
+                                            for (int i = 1; i <= 5; i++)
+                                            {
+                                                if (i <= diem)
                                                 {
                                                     <img src="~/images/2.png" style="opacity:1">
                                                 }
+                                                else if (i > diem)
+                                                {
+                                                    <img src="~/images/1.png" style="opacity:1">
+                                                }
                                             }
                                         }
-                                    </div>
-
-
+                                        else
+                                        {
+                                            @for (int i = 1; i <= 5; i++)
+                                            {
+                                                <img src="~/images/2.png" style="opacity:1">
+                                            }
+                                        }
+                                    }
                                 </div>
-                            </div>
-                            <h4><a asp-action="ChiTiet" asp-controller="HangHoa" asp-route-mahh="@item.MaHh">@item.TenHh</a></h4>
-                            @{ 
-                                double giaban = item.DonGia * (1 - item.GiamGia);
-                            }
-                            <div class="new-collections-grid1-left simpleCart_shelfItem">
-                                <p><i>@item.DonGia.ToString("#,##0") đ</i> <span class="item_price">@giaban.ToString("#,##0") đ</span></p>
+
+
                             </div>
                         </div>
+                        <h4><a asp-action="ChiTiet" asp-controller="HangHoa" asp-route-mahh="@item.MaHh">@item.TenHh</a></h4>
+                        @{
+                            double giaban = item.DonGia * (1 - item.GiamGia);
+                        }
+                        <div class="new-collections-grid1-left simpleCart_shelfItem">
+                            <p><i>@item.DonGia.ToString("#,##0") đ</i> <span class="item_price">@giaban.ToString("#,##0") đ</span></p>
+                        </div>
                     </div>
-                }
-            </div>
+                </div>
+            }
         </div>
     </div>
-
+</div>

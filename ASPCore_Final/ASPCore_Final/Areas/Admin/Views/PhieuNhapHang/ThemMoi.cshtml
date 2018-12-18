@@ -1,0 +1,77 @@
+﻿@model IEnumerable<ASPCore_Final.Models.HangHoaNhap>
+@{
+    ViewData["Title"] = "ThemMoi";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h2 class="alert alert-info">LẬP PHIẾU NHẬP HÀNG</h2>
+<div>
+    <div>
+        <input class="form-control" placeholder="Nhập vào từ khóa..." type="search" id="searchsp" style="width:300px;">
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script language="javascript">
+        $(function () {
+            $("#searchsp").keyup(function () {
+                $.ajax({
+                    url: "/admin/PhieuNhapHang/TimKiem",
+                    method: "GET",
+                    data: { keyword: $(this).val() },
+                    success: function (res) {
+                        $("#results").html();
+                        $("#results").html(res);
+                    }
+                });
+            });
+        });
+    </script>
+    <div id="results"></div>
+    <br />
+    <div>
+        @if (Model != null)
+        {
+            <table class="table table-bordered">
+                <tr>
+                    <th>STT</th>
+                    <th>Mã hàng</th>
+                    <th>Tên hàng</th>
+                    <th>Hình</th>
+                    <th>Kích cỡ</th>
+                    <th>Sô lượng nhập</th>
+                    <th>Giá nhập</th>
+                    <th>Tổng tiền</th>
+                    <th>Cập nhật thông tin</th>
+                </tr>
+                @{
+                    var STT = 1;
+                }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <form asp-action="LayThongTin" method="post">
+                            <td>@STT</td>
+                            <td>@item.MaHh</td>
+                            <td>@item.TenHh</td>
+                            <td><img width="70px;" height="70px;" src="~/HangHoa/@item.Hinh" alt="Alternate Text" /></td>
+                            <td><input type="text" name="size" id="size" value="@item.KichCo" style="width:35px;" /></td>
+                            <td><input type="text" name="soluongnhap" id="soluongnhap" style="width:35px;" value="@item.SoLuongNhap" /></td>
+                            <td><input type="text" name="dongianhap" id="dongianhap" value="@item.DonGiaNhap" /></td>
+                            <td class="thanhtien">@item.ThanhTien.ToString("#,##0")</td>
+                            <td><input type="submit" name="btnCapNhat" value="Cập nhật" /></td>
+                            <input type="hidden" name="mahh" id="mahh" value="@item.MaHh" />
+                            <td>
+                                <a asp-action="XoaChiTiet" asp-route-mahh="@item.MaHh" asp-route-size="@item.KichCo"><span class="glyphicon glyphicon-trash"></span></a>
+                            </td>
+                        </form>
+                    </tr>
+                    STT = STT + 1;
+                }
+            </table>
+            <div class="btn btn-success"><a style="color:white" asp-action="LuuPhieuNhapKho">Lưu phiếu nhập kho</a></div>
+        }
+    </div>
+</div>
+
+

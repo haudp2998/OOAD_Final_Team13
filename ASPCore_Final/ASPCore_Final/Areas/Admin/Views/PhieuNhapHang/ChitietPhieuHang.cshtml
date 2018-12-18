@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ASPCore_Final.Models.ChiTietPhieuNhap>
+
+@{
+    ViewData["Title"] = "ChitietPhieuHang";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Chi tiết phiếu hàng</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr style="background-color:lightblue;color:white;">
+            <th>
+               Mã phiếu nhập
+            </th>
+            <th>
+                Kích cỡ
+            </th>
+            <th>
+               Đơn giá nhập
+            </th>
+            <th>
+                Số lượng nhập
+            </th>
+            <th>
+                Tổng tiền
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaHh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KichCo)
+            </td>
+            <td>
+                @Convert.ToDouble(item.DonGiaNhap).ToString("#,##0")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoLuongNhap)
+            </td>
+            <td>
+                @{
+                    double tien = Convert.ToDouble(item.DonGiaNhap * item.SoLuongNhap);
+                 }
+                @tien.ToString("#,##0")
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -31,17 +31,6 @@ namespace ASPCore_Final.Areas.Admin.Controllers
                 if (nv == null)
                 {
 
-                    if (nv == null)
-                    {
-                        ModelState.AddModelError("loi", "Sai email hoặc password");
-                    }
-                    //  HttpContext.Session.SetString("email", nv.Email);
-                    else
-                    {
-                        HttpContext.Session.Set("email", nv);
-                        return LocalRedirect("/admin/");
-                    }
-
                     ModelState.AddModelError("loi", "Sai email hoặc password");
 
                 }

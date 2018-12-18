@@ -46,9 +46,7 @@
                 <th scope="col">
                     @Html.DisplayNameFor(model => model.MaTrangThai)
                 </th>
-                <th scope="col">
-                    @Html.DisplayNameFor(model => model.MaKhNavigation)
-                </th>
+          
                 <th scope="col">
                     @Html.DisplayNameFor(model => model.MaTrangThaiNavigation)
                 </th>
@@ -83,9 +81,7 @@
                     <td scope="row">
                         <a asp-action="ChangeStatus" asp-route-id="@item.MaHd" class="btn-active"> @Html.Raw(item.MaTrangThai == 0 ? "<strong>Chưa Duyệt</strong>" : "Đã Duyệt")</a>
                     </td>
-                    <td scope="row">
-                        @Html.DisplayFor(modelItem => item.MaKhNavigation.Email)
-                    </td>
+              
                     <td scope="row">
                         @Html.DisplayFor(modelItem => item.MaTrangThaiNavigation.TenTrangThai)
                     </td>

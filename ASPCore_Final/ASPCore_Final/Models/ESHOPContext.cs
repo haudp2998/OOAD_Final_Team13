@@ -17,6 +17,7 @@ namespace ASPCore_Final.Models
 
         public virtual DbSet<BinhLuanSp> BinhLuanSp { get; set; }
         public virtual DbSet<ChiTietHd> ChiTietHd { get; set; }
+        public virtual DbSet<ChiTietPhieuNhap> ChiTietPhieuNhap { get; set; }
         public virtual DbSet<HangHoa> HangHoa { get; set; }
         public virtual DbSet<HoaDon> HoaDon { get; set; }
         public virtual DbSet<HoiDap> HoiDap { get; set; }
@@ -25,7 +26,9 @@ namespace ASPCore_Final.Models
         public virtual DbSet<NhaCungCap> NhaCungCap { get; set; }
         public virtual DbSet<NhanVien> NhanVien { get; set; }
         public virtual DbSet<PhanQuyen> PhanQuyen { get; set; }
+        public virtual DbSet<PhieuNhapHang> PhieuNhapHang { get; set; }
         public virtual DbSet<SanPhamKho> SanPhamKho { get; set; }
+        public virtual DbSet<TbThongKe> TbThongKe { get; set; }
         public virtual DbSet<TrangThai> TrangThai { get; set; }
         public virtual DbSet<YeuThich> YeuThich { get; set; }
 
@@ -33,7 +36,8 @@ namespace ASPCore_Final.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=TUTUPS\\SQLEXPRESS01;Database=ESHOP;Integrated Security=True;");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=THANHSANG\\SQLEXPRESS;Database=ESHOP;Integrated Security=True;");
             }
         }
 
@@ -93,6 +97,33 @@ namespace ASPCore_Final.Models
                     .HasForeignKey(d => d.MaHh)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__ChiTietHD__MaHH__267ABA7A");
+            });
+
+            modelBuilder.Entity<ChiTietPhieuNhap>(entity =>
+            {
+                entity.HasKey(e => new { e.MaPn, e.MaHh, e.KichCo });
+
+                entity.Property(e => e.MaPn).HasColumnName("MaPN");
+
+                entity.Property(e => e.MaHh).HasColumnName("MaHH");
+
+                entity.Property(e => e.KichCo)
+                    .HasMaxLength(5)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.SoLuongNhap).HasDefaultValueSql("((0))");
+
+                entity.HasOne(d => d.MaHhNavigation)
+                    .WithMany(p => p.ChiTietPhieuNhap)
+                    .HasForeignKey(d => d.MaHh)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ChiTietPhieuNhap_HangHoa");
+
+                entity.HasOne(d => d.MaPnNavigation)
+                    .WithMany(p => p.ChiTietPhieuNhap)
+                    .HasForeignKey(d => d.MaPn)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ChiTietPhieuNhap_PhieuNhapHang");
             });
 
             modelBuilder.Entity<HangHoa>(entity =>
@@ -231,6 +262,8 @@ namespace ASPCore_Final.Models
                     .IsRequired()
                     .HasMaxLength(50);
 
+                entity.Property(e => e.LoaiKH).HasColumnName("LoaiKH");
+
                 entity.Property(e => e.MatKhau).HasMaxLength(50);
 
                 entity.Property(e => e.NgaySinh).HasColumnType("datetime");
@@ -313,6 +346,15 @@ namespace ASPCore_Final.Models
                 entity.Property(e => e.MaPq).HasColumnName("MaPQ");
             });
 
+            modelBuilder.Entity<PhieuNhapHang>(entity =>
+            {
+                entity.HasKey(e => e.MaPn);
+
+                entity.Property(e => e.MaPn).HasColumnName("MaPN");
+
+                entity.Property(e => e.NgayNhap).HasColumnType("datetime");
+            });
+
             modelBuilder.Entity<SanPhamKho>(entity =>
             {
                 entity.HasKey(e => new { e.MaSpKho, e.MaHh });
@@ -332,6 +374,17 @@ namespace ASPCore_Final.Models
                     .HasForeignKey(d => d.MaHh)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_SanPham_Kho_HangHoa");
+            });
+
+            modelBuilder.Entity<TbThongKe>(entity =>
+            {
+                entity.HasKey(e => e.MaTb);
+
+                entity.ToTable("TB_ThongKe");
+
+                entity.Property(e => e.MaTb).HasColumnName("MaTB");
+
+                entity.Property(e => e.ThoiGian).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TrangThai>(entity =>

@@ -1,0 +1,112 @@
+﻿@model IEnumerable<ASPCore_Final.Models.HangHoaNhap>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<h2 class="alert alert-info">LẬP PHIẾU NHẬP HÀNG</h2>
+<div>
+    <div>
+        <input class="form-control" placeholder="Nhập vào từ khóa..." type="search" id="searchsp" style="width:300px;">
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script language="javascript">
+        $(function () {
+            $("#searchsp").keyup(function () {
+                $.ajax({
+                    url: "/admin/PhieuNhapHang/TimKiem",
+                    method: "GET",
+                    data: { keyword: $(this).val() },
+                    success: function (res) {
+                        $("#results").html();
+                        $("#results").html(res);
+                    }
+                });
+            });
+        });
+    </script>
+    <div id="results"></div>
+    <br />
+    <div>
+        <table class="table table-bordered">
+            <tr>
+                <th>STT</th>
+                <th>Mã hàng</th>
+                <th>Tên hàng</th>
+                <th>Hình</th>
+                <th>Kích cỡ</th>
+                <th>Sô lượng nhập</th>
+                <th>Giá nhập</th>
+                <th>Tổng tiền</th>
+                <th>Xóa</th>
+                <th>Cập nhật thông tin</th>
+            </tr>
+            @{
+                var STT = 1;
+            }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@STT</td>
+                    <input type="hidden" name="mahh" id="mahh" value="@item.MaHh" />
+                    <td>@item.MaHh</td>
+                    <td>@item.TenHh</td>
+                    <td><img width="150px;" height="150px;" src="~/HangHoa/@item.Hinh" alt="Alternate Text" /></td>
+                    <td><input type="text" name="size" id="size" value="@item.KichCo" style="width:35px;" /></td>
+                    <td><input type="text" name="soluongnhap" id="soluongnhap" style="width:35px;" value="@item.SoLuongNhap" /></td>
+                    <td><input type="text" name="dongianhap" id="dongianhap" value="@item.DonGiaNhap" /></td>
+                    <td class="thanhtien">@item.ThanhTien</td>
+                    <td><span class="glyphicon glyphicon-trash"></span></td>
+                </tr>
+                STT = STT + 1;
+
+            }
+        </table>
+        <script>
+
+            $(function () {
+                $("input[type='text']").change(function () {
+                    var currentSoLuongNhap = $(this);
+                    console.log(currentSoLuongNhap);
+                    var currentMaHH = $(siblings("input[name='mahh']")[0]);
+                    var currentKichCo = $(currentSoLuongNhap.siblings("input[name='size']")[0]);
+                    var currentDonGiaNhap = $(currentSoLuongNhap.siblings("input[name='dongianhap']")[0]);
+                    var mahh = currentMaHH.val();
+                    var size = currentKichCo.val();
+                    var soluongnhap = currentSoLuongNhap.val();
+                    var dongianhap = currentDonGiaNhap.val();
+                    alert(mahh);
+                    //Update(mahh, size, soluongnhap, dongianhap);
+                });
+            });
+
+            function Update(mahh, size, soluongnhap, dongianhap) {
+                console.log(mahh);
+                console.log(soluongnhap);
+                console.log(size);
+                console.log(dongianhap);
+                //$.ajax({
+                //    url: "/admin/PhieuNhapHang/CapNhatThongTin",
+                //    type: "GET",
+                //    contentType: "application/json; charset=utf-8",
+
+                //    data: { "mahh": mahh, "size": size, "soluongnhap": soluongnhap, "dongianhap": dongianhap },
+                //    async: true,
+                //    success: function (data) {
+                //        console.log('success');
+                //        console.log(data);
+                //        $("td#thanhtien").html('1');
+                //        var tongtien = 0;
+                //        for (var i = 0; i < data.length; i++) {
+                //            var currentItem = data[i];
+                //            tongtien += currentItem['donGiaNhap'] * currentItem['soLuongNhap'];
+                //        }
+                //        $("td#thanhtien").html(tongtien.toString("#,##0"));
+                //    }
+
+                //});
+            }
+        </script>
+        <div class="btn btn-success"><a style="color:white" asp-action="LuuPhieuNhapKho">Lưu phiếu nhập kho</a></div>
+    </div>
+</div>
+

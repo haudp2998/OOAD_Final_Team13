@@ -25,11 +25,11 @@
                 <th scope="col">
                     @Html.DisplayNameFor(model => model.TaiKhoan)
                 </th>
-              
+
                 <th scope="col">
                     @Html.DisplayNameFor(model => model.HoTen)
                 </th>
-           
+
                 <th scope="col">
                     @Html.DisplayNameFor(model => model.DiaChi)
                 </th>
@@ -39,58 +39,81 @@
                 <th scope="col">
                     @Html.DisplayNameFor(model => model.Email)
                 </th>
-           
-                <th scope="col">
-                    @Html.DisplayNameFor(model => model.TrangThaiHd)
-                </th>
                 <th scope="col">
                     @Html.DisplayNameFor(model => model.LoaiKH)
                 </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.TrangThaiHd)
+                </th>
+
                 <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-            <tr>
-                <td scope="row">
-                    @Html.DisplayFor(modelItem => item.TaiKhoan)
-                </td>
+                <tr onclick="_delete(@item.MaKh, event)">
+                    <td scope="row">
+                        @Html.DisplayFor(modelItem => item.TaiKhoan)
+                    </td>
 
-                <td scope="row">
-                    @Html.DisplayFor(modelItem => item.HoTen)
-                </td>
+                    <td scope="row">
+                        @Html.DisplayFor(modelItem => item.HoTen)
+                    </td>
 
-                <td scope="row">
-                    @Html.DisplayFor(modelItem => item.DiaChi)
-                </td>
-                <td scope="row">
-                    @Html.DisplayFor(modelItem => item.DienThoai)
-                </td>
-                <td scope="row">
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td scope="row">
-                    @Html.Raw(item.LoaiKH == true ? "<strong>KH thân thiết</strong>" : "KH thường")
-                </td>
+                    <td scope="row">
+                        @Html.DisplayFor(modelItem => item.DiaChi)
+                    </td>
+                    <td scope="row">
+                        @Html.DisplayFor(modelItem => item.DienThoai)
+                    </td>
+                    <td scope="row">
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td scope="row">
+                        @Html.Raw(item.LoaiKH == true ? "<strong>KH thân thiết</strong>" : "KH thường")
+                    </td>
 
-                <td scope="row">
-                    <a asp-action="ChangeStatus" asp-route-id="@item.MaKh" class="btn-active"> @Html.Raw(item.TrangThaiHd == true ? "<strong>True</strong>" : "False")</a>
-                </td>
-                <td scope="row">
+                    <td scope="row">
+                        <a asp-action="ChangeStatus" asp-route-id="@item.MaKh" class="btn-active"> @Html.Raw(item.TrangThaiHd == true ? "<strong>True</strong>" : "False")</a>
+                    </td>
+                    <td scope="row">
 
-                    <a asp-action="Details" asp-route-id="@item.MaKh" class="btn btn-primary">Xem chi tiết</a>
-
-                </td>
-            </tr>
+                        <a asp-action="Details" asp-route-id="@item.MaKh" class="btn btn-primary">Xem chi tiết</a>
+                        <button type="button" class="btn btn-primary btn-delete">Xóa</button>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
+    <script>
+        function _delete(id, ev) {
+            if (ev.target.className == 'btn btn-primary btn-delete') {
+                console.log(ev.target);
+                console.log(ev.currentTarget);
+                var cf = confirm('Bạn có muốn xoá khách hàng ID: ' + id + '?');
+                if (cf) {
+                    $(ev.currentTarget).fadeOut();
+                    $.ajax({
+                        url: '/api/KhachHangs/' + id,
+                        type: "Delete",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        async: true,
+                        success: function (result) {
+                            alert("Xoá khách hàng thành công");
+                        },
+                        error: function (errormessage) {
+                            alert(errormessage.responseText);
+                        }
+                    });
+                }
+            }
+        }
+    </script>
     <nav class="navbar-default justify-content-center">
 
-
         @await this.Component.InvokeAsync("Pager", new { pagingList = this.Model, @searchString = @ViewBag.SearchString, @class = "page-item" })
-
 
     </nav>
 </div>

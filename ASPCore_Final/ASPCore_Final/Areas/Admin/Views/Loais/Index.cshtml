@@ -1,0 +1,87 @@
+﻿
+@model ReflectionIT.Mvc.Paging.PagingList<ASPCore_Final.Models.Loai>
+@using ReflectionIT.Mvc.Paging;
+@addTagHelper *, ReflectionIT.Mvc.Paging
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4">Danh sách Loại HH</h4>
+    <form method="get" class="form-inline">
+        <input name="searchString" class="form-control" placeholder="Search..."
+               value="@Model.RouteValue["searchString"]" />
+        <button type="submit" class="btn btn-info">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
+        </button>
+    </form>
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Tạo mới</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.GioiTinh)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.TenLoai)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr onclick="_delete('@item.MaLoai', event)" >
+                    <td scope="row">
+                        
+                        <a> @Html.Raw(item.GioiTinh == true ? "Nam" : "Nữ")</a> 
+                    </td>
+                    <td scope="row">
+                        @Html.DisplayFor(modelItem => item.TenLoai)
+                    </td>
+                    <td scope="row">
+                        <a asp-action="Edit" asp-route-id="@item.MaLoai">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.MaLoai">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.MaLoai">Delete</a> |
+                        <button type="button" class="btn btn-primary btn-delete" >Xóa</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <script>
+        function _delete(id, ev) {
+            if (ev.target.className == 'btn btn-primary btn-delete') {
+                console.log(ev.target);
+                console.log(ev.currentTarget);
+                var cf = confirm('Bạn có muốn xoá loại HH ID: ' + id + '?');
+                if (cf) {
+                    $(ev.currentTarget).fadeOut();
+                    $.ajax({
+                        url: '/api/Loais/' + id,
+                        type: "Delete",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        async: true,
+                        success: function (result) {
+                            alert("Xoá loại HH thành công");
+                        },
+                        error: function (errormessage) {
+                            alert(errormessage.responseText);
+                        }
+                    });
+                }
+            }
+        }
+    </script>
+    <nav class="navbar-default justify-content-center">
+
+
+        @await this.Component.InvokeAsync("Pager", new { pagingList = this.Model, @searchString = @ViewBag.SearchString, @class = "page-item" })
+
+
+    </nav>
+</div>

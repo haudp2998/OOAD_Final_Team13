@@ -43,7 +43,7 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
+                <tr onclick="_delete('@item.MaNcc', event)">
                     <td scope="row">
                         @Html.DisplayFor(modelItem => item.TenCongTy)
                     </td>
@@ -63,7 +63,7 @@
                         <a asp-action="Edit" asp-route-id="@item.MaNcc" class="btn btn-primary">Sửa</a> |
                         <a asp-action="Details" asp-route-id="@item.MaNcc" class="btn btn-primary">Xem chi tiết</a>
 
-                        @*<button type="button" class="btn btn-primary btn-delete">Xóa</button>*@
+                        <button type="button" class="btn btn-primary btn-delete">Xóa</button>
                         
                     </td>
                 </tr>
@@ -85,7 +85,7 @@
                         dataType: "json",
                         async: true,
                         success: function (result) {
-                            alert("Xoá nhân viên thành công");
+                            alert("Xoá nhân NCC công");
                         },
                         error: function (errormessage) {
                             alert(errormessage.responseText);
